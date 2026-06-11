@@ -16,7 +16,9 @@ namespace Proyecto_ATM
         public string email;
         public int pin;
         public bool bloqueado;
-        public Cuenta[] cuentas;
+        public Cuenta[] cuentas; //se debe cambiar cuando se tenga listo la lista de cuentas.
+        
+        public Cliente sgte;
 
         public Cliente(int dni, String nombre, String apellido,
                     String direccion, int telefono, String email, int pin, Cuenta[] cuentas)
@@ -98,5 +100,6 @@ namespace Proyecto_ATM
         }
 
         //Se debe agregar un método para cambiar pin y validar el nuevo pin, debe ser de 4 dígitos y no puede ser igual al pin anterior.
+    
     }
 }
