@@ -1,0 +1,2 @@
+C:\Users\HRonny\source\repos\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.AssemblyReference.cache
+C:\Users\HRonny\source\repos\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.CoreCompileInputs.cache
