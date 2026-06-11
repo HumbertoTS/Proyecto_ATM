@@ -27,13 +27,13 @@ namespace Proyecto_ATM
             this.direccion = direccion;
             this.telefono = telefono;
             this.email = email;
-            this.pin = pin;
+            this.pin = pin;            
             this.cuentas = cuentas;
         }
         //Método para contar los digitos.
         //Esto va a servir para validar la cantidad de digitos de DNI, telefono y pin.
         //deben ser de 8, 9 y 4 dígitos respectivamente.
-        public int ContarDigitos(int numero)
+        public int contarDigitos(int numero)
         {
             int contador = 0;
             while (numero != 0)
@@ -45,27 +45,27 @@ namespace Proyecto_ATM
         }
 
         //Método para validar los digitos de dni.
-        public bool ContarDigitosDni(int dni)
+        public bool contarDigitosDni(int dni)
         {
-            return ContarDigitos(dni) == 8;
+            return contarDigitos(dni) == 8;
         }
 
         //Método para validar los digitos de telefono.
-        public bool ContarDigitosTelefono(int telefono)
+        public bool contarDigitosTelefono(int telefono)
         {
-            return ContarDigitos(telefono) == 9;
+            return contarDigitos(telefono) == 9;
         }
 
         //Método para validar los digitos de pin.
-        public bool ContarDigitosPin(int pin)
+        public bool contarDigitosPin(int pin)
         {
-            return ContarDigitos(pin) == 4;
+            return contarDigitos(pin) == 4;
         }
 
         //Validar el formato del email, debe contener un "@" y un "." después del "@".
         //También valida que exista texto antes del "@".
         //Además, busca que exista el "." después del "@" por si existe un dominio.
-        public bool ValidarEmail(String email)
+        public bool validarEmail(String email)
         {
             int posicionArroba = email.IndexOf("@");
             int posicionPunto = email.LastIndexOf('.');
@@ -74,22 +74,29 @@ namespace Proyecto_ATM
                    posicionPunto > posicionArroba;
         }
         //Método para validar el pin que ingresa el cliente.
-        public bool ValidarPinAcceso(int pinIngresado)
+        public bool validarPinAcceso(int pinIngresado)
         {
             return this.pin == pinIngresado;
         }
 
-        public void BloquearCliente()
+        //Método para bloquear al cliente.
+        public void bloquearCliente()
         {
             bloqueado = true;
         }
 
-        //Método que valida si el cliente esta bloqueado o no.
-        public bool EstaBloqueado()
+        //Método para desbloquea al cliente.
+        public void desbloquearCliente()
+        {
+            bloqueado = false;
+        }
+
+        //Método que verifica el estado de bloqueo del cliente.
+        public bool verificarBloqueo()
         {
             return bloqueado;
         }
 
-
+        //Se debe agregar un método para cambiar pin y validar el nuevo pin, debe ser de 4 dígitos y no puede ser igual al pin anterior.
     }
 }
