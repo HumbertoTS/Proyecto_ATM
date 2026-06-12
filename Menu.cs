@@ -77,7 +77,7 @@ namespace Proyecto_ATM
         {
             Console.WriteLine("Ingreso al menu exitoso");
             Console.ReadKey();
-            /*int opcion;
+            int opcion;
 
             do
             {
@@ -88,6 +88,9 @@ namespace Proyecto_ATM
                 Console.WriteLine("1. Retiro");
                 Console.WriteLine("2. Transferencia");
                 Console.WriteLine("3. Salir");
+                Console.WriteLine("7. Solicitud de Crédito");
+                Console.WriteLine("8. Retiro sin Tarjeta");
+                Console.WriteLine("9. Pago de Servicios");
                 Console.WriteLine("===================================");
                 Console.Write("Seleccione una opción: ");
 
@@ -100,23 +103,36 @@ namespace Proyecto_ATM
                 switch (opcion)
                 {
                     case 1:
-                        atm.retiro(cliente);
+                        //atm.retiro(cliente);
                         break;
 
                     case 2:
-                        atm.transferencia(cliente);
+                        //atm.transferencia(cliente);
                         break;
 
                     case 3:
                         Console.WriteLine("Gracias por utilizar nuestro ATM.");
                         break;
+                    case 7:
+                        Cuenta cuentaCredito = cliente.cuenta.seleccionarCuenta();
+                        atm.solicitarCredito(cuentaCredito);
+                        break;
 
+                    case 8:
+                        Cuenta cuentaRetiro = cliente.cuenta.seleccionarCuenta();
+                        atm.retiroSinTarjeta(cuentaRetiro);
+                        break;
+
+                    case 9:
+                        Cuenta cuentaPago = cliente.cuenta.seleccionarCuenta();
+                        atm.pagoServicio(cuentaPago);
+                        break;
                     default:
                         Console.WriteLine("Opción no válida.");
                         break;
                 }
 
-            } while (opcion != 3);*/
+            } while (opcion != 3);
         }
         //Método para leer el PIN ingresado por el cliente, ocultando los caracteres.
         private string LeerPin()
