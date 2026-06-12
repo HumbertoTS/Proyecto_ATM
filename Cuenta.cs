@@ -10,8 +10,8 @@ namespace Proyecto_ATM
     {
         public int numeroCuenta;
         public string tipoCuenta;
-        public decimal saldo;
-        public Movimiento[] movimientos; //se debe cambiar cuando se tenga listo la lista de movimientos
+        private decimal saldo;
+        public Movimiento movimientos; //se debe cambiar cuando se tenga listo la lista de movimientos
 
         public Cuenta sgte;
 
@@ -20,6 +20,7 @@ namespace Proyecto_ATM
             this.numeroCuenta = numeroCuenta;
             this.tipoCuenta = tipoCuenta;
             this.saldo = saldo;
+            this.sgte = null;
         }
         //Método para consultar el saldo de la cuenta.
         public decimal consultarSaldo()

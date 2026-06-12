@@ -16,12 +16,12 @@ namespace Proyecto_ATM
         public string email;
         public int pin;
         public bool bloqueado;
-        public Cuenta[] cuentas; //se debe cambiar cuando se tenga listo la lista de cuentas.
+        public ListaEnlazadaCuenta cuenta;
         
         public Cliente sgte;
 
         public Cliente(int dni, String nombre, String apellido,
-                    String direccion, int telefono, String email, int pin, Cuenta[] cuentas)
+                    String direccion, int telefono, String email, int pin, ListaEnlazadaCuenta cuenta)
         {
             this.dni = dni;
             this.nombre = nombre;
@@ -29,8 +29,10 @@ namespace Proyecto_ATM
             this.direccion = direccion;
             this.telefono = telefono;
             this.email = email;
-            this.pin = pin;            
-            this.cuentas = cuentas;
+            this.pin = pin;
+            this.cuenta = cuenta;
+
+            this.sgte = null;
         }
         //Método para contar los digitos.
         //Esto va a servir para validar la cantidad de digitos de DNI, telefono y pin.
