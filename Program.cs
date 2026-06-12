@@ -43,8 +43,9 @@ namespace Proyecto_ATM
             // Iniciar sesión
             while (true)
             {
-                Console.Clear();
+                
                 menu.iniciarSesion();
+                
             }
 
             //Console.ReadKey();

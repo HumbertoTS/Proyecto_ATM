@@ -23,11 +23,15 @@ namespace Proyecto_ATM
             while (cliente == null)
             {
                 int dni;
+                
+                Console.WriteLine(" ------------------------------------------------");
+                Console.WriteLine("|Bienvenido al ATM BCP. Por favor, inicie sesión.|");
+                Console.WriteLine(" ------------------------------------------------");
                 Console.WriteLine("Ingrese su DNI: ");
 
                 if (!int.TryParse(Console.ReadLine(), out dni))
                 {
-                    Console.WriteLine("Debe ingresar un DNI válido.");
+                    Console.WriteLine("\nDebe ingresar un DNI válido.");
                     continue;
                 }
 
@@ -66,18 +70,18 @@ namespace Proyecto_ATM
                 }
                 intentos++;
                 Console.WriteLine("PIN incorrecto. Intentos restantes: " + (3 - intentos));
+               
             }
 
             cliente.bloquearCliente();
             Console.WriteLine("El cliente ha sido bloqueado por exceder la cantidad de intentos");
             Console.WriteLine("Por favor, acercarse a plataforma para desbloquear su cuenta");
+            
         }
-
+        //Método para mostrar el menú de opciones al cliente después de iniciar sesión exitosamente.
         public void mostrarMenu(Cliente cliente)
         {
-            Console.WriteLine("Ingreso al menu exitoso");
-            Console.ReadKey();
-            /*int opcion;
+            int opcion;
 
             do
             {
@@ -100,11 +104,13 @@ namespace Proyecto_ATM
                 switch (opcion)
                 {
                     case 1:
-                        atm.retiro(cliente);
+                        //atm.retiro(cliente);
+                        Console.WriteLine("Funcionalidad de retiro aún no implementada.");
                         break;
 
                     case 2:
-                        atm.transferencia(cliente);
+                        //atm.transferencia(cliente);
+                        Console.WriteLine("Funcionalidad de transferencia aún no implementada.");
                         break;
 
                     case 3:
@@ -116,7 +122,7 @@ namespace Proyecto_ATM
                         break;
                 }
 
-            } while (opcion != 3);*/
+            } while (opcion != 3);
         }
         //Método para leer el PIN ingresado por el cliente, ocultando los caracteres.
         private string LeerPin()
