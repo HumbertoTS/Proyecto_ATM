@@ -10,49 +10,44 @@ namespace Proyecto_ATM
     {
         static void Main(string[] args)
         {
+            // Crear la lista de clientes
             ListaEnlazadaCliente listaClientes = new ListaEnlazadaCliente();
 
-            // Crear cuenta
-            Cuenta cuenta1 = new Cuenta(1001, "Ahorros", 1500);
+            // Crear la lista de cuentas del cliente
+            ListaEnlazadaCuenta listaCuentas = new ListaEnlazadaCuenta();
 
-            Cuenta[] cuentas = new Cuenta[1];
-            cuentas[0] = cuenta1;
+            Cuenta cuenta1 = new Cuenta(1001, "Ahorros", 5000);
+            Cuenta cuenta2 = new Cuenta(1002, "Corriente", 2500);
 
-            // Insertar cliente
+            listaCuentas.agregarCuenta(cuenta1);
+            listaCuentas.agregarCuenta(cuenta2);
+
+            // Registrar un cliente
             listaClientes.insertaCliente(
                 12345678,
                 "Juan",
-                "Perez",
-                "Av. Principal 123",
+                "Pérez",
+                "Av. Lima 123",
                 987654321,
                 "juan@gmail.com",
                 1234,
-                cuentas
+                listaCuentas
             );
 
-            // Crear ATM
+            // Crear el ATM
             ATM atm = new ATM(listaClientes);
 
-            // Pedir datos
-            Console.Write("Ingrese DNI: ");
-            int dni = int.Parse(Console.ReadLine());
+            // Crear el menú
+            Menu menu = new Menu(atm);
 
-            Console.Write("Ingrese PIN: ");
-            int pin = int.Parse(Console.ReadLine());
-
-            // Probar login
-            Cliente cliente = atm.IniciarSesion(dni, pin);
-
-            if (cliente != null)
+            // Iniciar sesión
+            while (true)
             {
-                Console.WriteLine("Acceso concedido.");
-            }
-            else
-            {
-                Console.WriteLine("Acceso denegado.");
+                Console.Clear();
+                menu.iniciarSesion();
             }
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

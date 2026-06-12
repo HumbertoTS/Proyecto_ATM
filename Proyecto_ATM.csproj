@@ -47,6 +47,9 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Cuenta.cs" />
     <Compile Include="ListaEnlazadaCliente.cs" />
+    <Compile Include="ListaEnlazadaCuenta.cs" />
+    <Compile Include="ListaEnlazadaMovimiento.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Movimiento.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

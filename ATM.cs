@@ -12,27 +12,17 @@ namespace Proyecto_ATM
         //Constructor del ATM que recibe la lista de clientes.
         public ATM(ListaEnlazadaCliente clientes) { 
             
-            this.clientes = clientes;
+            this.clientes = clientes;            
         }
-        //Método para iniciar sesión en el ATM.
-        public Cliente IniciarSesion(int dni, int pin)
+        //Método para validar pin.
+        public bool validarPin(Cliente cliente, int pin)
         {
-            Cliente cliente = clientes.buscarPorDni(dni);
-
-            if (cliente == null)
-            {
-                Console.WriteLine("DNI no encontrado.");
-                return null;
-            }
-
-            if (cliente.pin != pin)
-            {
-                Console.WriteLine("PIN incorrecto.");
-                return null;
-            }
-
-            Console.WriteLine($"Bienvenido {cliente.nombre}");
-            return cliente;
+            return cliente.validarPinAcceso(pin);
+        }
+        
+        public Cliente buscarCliente(int dni)
+        {
+            return clientes.buscarPorDni(dni);
         }
     }
 }
