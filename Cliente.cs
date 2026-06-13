@@ -17,7 +17,7 @@ namespace Proyecto_ATM
         public Cliente sgte;
 
         public Cliente(int dni, String nombre, String apellido,
-                    String direccion, int telefono, String email, int pin, ListaEnlazadaCuenta cuentas)
+                    String direccion, int telefono, String email, int pin, bool bloqueado, ListaEnlazadaCuenta cuentas)
         {
             this.dni = dni;
             this.nombre = nombre;
@@ -26,6 +26,7 @@ namespace Proyecto_ATM
             this.telefono = telefono;
             this.email = email;
             this.pin = pin;
+            this.bloqueado = bloqueado;
             this.cuentas = cuentas;
 
             this.sgte = null;
@@ -33,8 +34,13 @@ namespace Proyecto_ATM
         //Método para contar los digitos.
         //Esto va a servir para validar la cantidad de digitos de DNI, telefono y pin.
         //deben ser de 8, 9 y 4 dígitos respectivamente.
-        public int contarDigitos(int numero)
+        public static int contarDigitos(int numero)
         {
+            if (numero == 0)
+            { 
+                return 1; 
+            }
+
             int contador = 0;
             while (numero != 0)
             {
@@ -45,38 +51,44 @@ namespace Proyecto_ATM
         }
 
         //Método para validar los digitos de dni.
-        public bool contarDigitosDni(int dni)
+        public static bool contarDigitosDni(int dni)
         {
-            return contarDigitos(dni) == 8;
+            return dni > 0 && contarDigitos(dni) == 8;
         }
 
         //Método para validar los digitos de telefono.
-        public bool contarDigitosTelefono(int telefono)
+        public static bool contarDigitosTelefono(int telefono)
         {
-            return contarDigitos(telefono) == 9;
+            return telefono > 0 && contarDigitos(telefono) == 9;
         }
 
         //Método para validar los digitos de pin.
-        public bool contarDigitosPin(int pin)
+        public static bool contarDigitosPin(int pin)
         {
-            return contarDigitos(pin) == 4;
+            return pin > 0 && contarDigitos(pin) == 4;
         }
 
         //Validar el formato del email, debe contener un "@" y un "." después del "@".
         //También valida que exista texto antes del "@".
         //Además, busca que exista el "." después del "@" por si existe un dominio.
-        public bool validarEmail(String email)
+        public static bool validarEmail(string email)
         {
-            int posicionArroba = email.IndexOf("@");
+            if (string.IsNullOrWhiteSpace(email))
+            { 
+                return false; 
+            }
+
+            int posicionArroba = email.IndexOf('@');
             int posicionPunto = email.LastIndexOf('.');
 
             return posicionArroba > 0 &&
-                   posicionPunto > posicionArroba;
+                   posicionPunto > posicionArroba + 1 &&
+                   posicionPunto < email.Length - 1;
         }
         //Método para validar el pin que ingresa el cliente.
         public bool validarPinAcceso(int pinIngresado)
         {
-            return this.pin == pinIngresado;
+            return pin == pinIngresado;
         }
 
         //Método para bloquear al cliente.

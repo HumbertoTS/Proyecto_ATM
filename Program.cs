@@ -35,6 +35,7 @@ namespace Proyecto_ATM
                 999888777,
                 "maria@gmail.com",
                 4321,
+                false,
                 listaCuentasMaria
             );
 
@@ -47,6 +48,7 @@ namespace Proyecto_ATM
                 987654321,
                 "juan@gmail.com",
                 1234,
+                false,
                 listaCuentas
             );
 

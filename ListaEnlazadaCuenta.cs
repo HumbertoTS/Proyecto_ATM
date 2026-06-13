@@ -49,6 +49,17 @@ namespace Proyecto_ATM
         // Método para agregar una cuenta.
         public void agregarCuenta(Cuenta nuevaCuenta)
         {
+            if (nuevaCuenta == null)
+            {
+                return;
+            }
+
+            if (buscarCuenta(nuevaCuenta.numeroCuenta) != null)
+            {
+                Console.WriteLine("Ya existe una cuenta con ese número.");
+                return;
+            }
+
             if (lista == null)
             {
                 lista = nuevaCuenta;
@@ -83,13 +94,14 @@ namespace Proyecto_ATM
             //En caso este vacío la lista
             if (lista == null)
             {
-                Console.WriteLine("No hay clientes registrados.");
+                Console.WriteLine("No hay cuentas registradas.");
                 return;
             }
             //Elimina la primera cuenta
             if (lista.numeroCuenta == numeroCuenta)
             {
                 lista = lista.sgte;
+                Console.WriteLine("Cuenta eliminada correctamente.");
                 return;
             }
             Cuenta cuenta = lista;
@@ -103,9 +115,10 @@ namespace Proyecto_ATM
                 }
                 cuenta = cuenta.sgte;
             }
+            Console.WriteLine("Cuenta no encontrada.");
         }
         //Busca la posición de la cuenta en la lista.
-        public Cuenta buscarporPosicion(int posicion)
+        public Cuenta buscarPorPosicion(int posicion)
         {
         Cuenta cuenta = lista;
         int contador = 1;
@@ -123,6 +136,12 @@ namespace Proyecto_ATM
         //Método para seleccionar una cuenta.
         public Cuenta seleccionarCuenta()
         {
+            if (estaVacia())
+            {
+                Console.WriteLine("No hay cuentas registradas.");
+                return null;
+            }
+
             mostrarCuentas();
             int posicion = 0;
             Cuenta cuenta = null;
@@ -133,7 +152,7 @@ namespace Proyecto_ATM
 
                 if (int.TryParse(Console.ReadLine(), out posicion))
                 {
-                    cuenta = buscarporPosicion(posicion);
+                    cuenta = buscarPorPosicion(posicion);
 
                     if (cuenta == null)
                     {
