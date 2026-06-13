@@ -91,7 +91,10 @@ namespace Proyecto_ATM
                 Console.WriteLine("===================================");
                 Console.WriteLine("1. Retiro");
                 Console.WriteLine("2. Transferencia");
-                Console.WriteLine("3. Salir");
+                Console.WriteLine("7. Solicitud de Crédito");
+                Console.WriteLine("8. Retiro sin Tarjeta");
+                Console.WriteLine("9. Pago de Servicios");
+                Console.WriteLine("10. Salir");
                 Console.WriteLine("===================================");
                 Console.Write("Seleccione una opción: ");
 
@@ -113,7 +116,22 @@ namespace Proyecto_ATM
                         Console.WriteLine("Funcionalidad de transferencia aún no implementada.");
                         break;
 
-                    case 3:
+                    /*case 7:
+                        Cuenta cuentaCredito = cliente.cuenta.seleccionarCuenta();
+                        atm.solicitarCredito(cuentaCredito);
+                        break;
+
+                    case 8:
+                        Cuenta cuentaRetiro = cliente.cuenta.seleccionarCuenta();
+                        atm.retiroSinTarjeta(cuentaRetiro);
+                        break;
+
+                    case 9:
+                        Cuenta cuentaPago = cliente.cuenta.seleccionarCuenta();
+                        atm.pagoServicio(cuentaPago);
+                        break;*/
+
+                    case 10:
                         Console.WriteLine("Gracias por utilizar nuestro ATM.");
                         break;
 
