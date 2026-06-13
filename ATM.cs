@@ -69,6 +69,74 @@ namespace Proyecto_ATM
                 Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
             }
         }
+        //Método para módulo transferencia.
+        public void transferencia(Cliente cliente)
+        {
+            Console.Clear();
+            Console.WriteLine("===== TRANSFERENCIA =====");
+
+            Cuenta cuentaOrigen = cliente.cuentas.seleccionarCuenta();
+            Console.Write("\nSaldo disponible: S/. " + cuentaOrigen.consultarSaldo());
+            
+            Console.Write("\nIngrese el número de cuenta destino: ");
+
+            if(!int.TryParse(Console.ReadLine(), out int numeroCuentaDestino))
+            {
+                Console.WriteLine("Debe ingresar un número de cuenta válido.");
+                Console.ReadKey();
+                return;
+            }
+
+            Cuenta cuentaDestino = buscarCuentaDestino(numeroCuentaDestino);
+            if(cuentaDestino == null)
+            {
+                Console.WriteLine("Cuenta destino no encontrada.");
+                Console.ReadKey();
+                return;
+            }
+            //valida si el numero de cuenta del usuario es el mismo que va a transferir..
+            if (cuentaOrigen.numeroCuenta == cuentaDestino.numeroCuenta)
+            {
+                Console.WriteLine("No puede transferir a la misma cuenta.");
+                return;
+            }
+            decimal monto;
+            Console.WriteLine("\nIngrese el monto a transferir: S/. ");
+            if(!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
+            {
+                Console.WriteLine("Debe ingresar un monto válido.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine("\n===== RESUMEN DE TRANSFERENCIA =====");
+            Console.WriteLine("Cuenta origen : " + cuentaOrigen.numeroCuenta);
+            Console.WriteLine("Cuenta destino: " + cuentaDestino.numeroCuenta);
+            Console.WriteLine("Monto         : S/. " + monto);
+
+            Console.WriteLine("\n1. Confirmar");
+            Console.WriteLine("0. Cancelar");
+            Console.Write("Seleccione una opción: ");
+
+            if (!int.TryParse(Console.ReadLine(), out int opcion) || opcion != 1)
+            {
+                Console.WriteLine("Transferencia cancelada.");
+                Console.ReadKey();
+                return;
+            }
+
+            if (cuentaOrigen.retirar(monto))
+            {
+                cuentaDestino.depositar(monto);
+                Console.WriteLine("\nTransferencia realizada correctamente.");
+                Console.WriteLine("Saldo actual: S/. " + cuentaOrigen.consultarSaldo());
+            }
+            else
+            {
+                Console.WriteLine("\nSaldo insuficiente.");
+            }
+
+        }
 
         public void solicitarCredito(Cuenta cuenta)
         {
@@ -220,5 +288,25 @@ namespace Proyecto_ATM
                 Console.WriteLine("Operación cancelada.");
             }
         }
+        // Método para buscar cuenta destino en transferencias.
+        public Cuenta buscarCuentaDestino(int numeroCuenta)
+        {
+            Cliente cliente = clientes.lista;
+
+            while (cliente != null)
+            {
+                Cuenta cuentaDestino = cliente.cuentas.buscarCuenta(numeroCuenta);
+
+                if(cuentaDestino != null)
+                {
+                    return cuentaDestino;
+                }
+
+                cliente = cliente.sgte;
+            }
+
+            return null;
+        }
     }
 }
+

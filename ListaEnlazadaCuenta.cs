@@ -45,28 +45,7 @@ namespace Proyecto_ATM
             }
 
             Console.WriteLine("-----------------------------------------------------------");
-        }
-        //Método para mostrar las cuentas con su saldo actual.
-        /*public void mostrarCuentasConSaldo()
-        {
-            Cuenta cuenta = lista;
-            if (cuenta == null)
-            {
-                Console.WriteLine("No hay cuentas registradas.");
-                return;
-            }
-            int posicion = 1;
-            Console.WriteLine("--------------------------------------------------------------------------------");
-            Console.WriteLine($"| {"Opción",-8} | {"N° Cuenta",-12} | {"Tipo",-15} | {"Saldo Actual",-15} |");
-            Console.WriteLine("--------------------------------------------------------------------------------");
-            while (cuenta != null)
-            {
-                Console.WriteLine($"| {posicion,-8} | {cuenta.numeroCuenta,-12} | {cuenta.tipoCuenta,-15} | {cuenta.consultarSaldo(),-15:C} |");
-                posicion++;
-                cuenta = cuenta.sgte;
-            }
-            Console.WriteLine("--------------------------------------------------------------------------------");
-        }*/
+        }     
         // Método para agregar una cuenta.
         public void agregarCuenta(Cuenta nuevaCuenta)
         {
