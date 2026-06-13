@@ -15,13 +15,13 @@ namespace Proyecto_ATM.Servicios
         }
 
         // Método para validar PIN.
-        public bool validarPin(Cliente cliente, int pin)
+        public bool validarPin(Cliente cliente, string pin)
         {
             return cliente.validarPinAcceso(pin);
         }
 
         // Busca un cliente por DNI.
-        public Cliente buscarCliente(int dni)
+        public Cliente buscarCliente(string dni)
         {
             return clientes.buscarPorDni(dni);
         }

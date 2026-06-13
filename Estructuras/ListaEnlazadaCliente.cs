@@ -14,8 +14,8 @@ namespace Proyecto_ATM.Estructuras
 
         // Método para insertar un nuevo cliente.
         // Retorna true si se insertó con éxito, false si el DNI ya existe.
-        public bool insertaCliente(int dni, string nombre, string apellido, string direccion, int telefono,
-                                    string email, int pin, ListaEnlazadaCuenta cuenta)
+        public bool insertaCliente(string dni, string nombre, string apellido, string direccion, string telefono,
+                                    string email, string pin, ListaEnlazadaCuenta cuenta)
         {
             // Validar si el cliente ya existe antes de insertarlo.
             if (buscarPorDni(dni) != null)
@@ -44,7 +44,7 @@ namespace Proyecto_ATM.Estructuras
         }
 
         // Busca un cliente por su DNI.
-        public Cliente buscarPorDni(int dni)
+        public Cliente buscarPorDni(string dni)
         {
             Cliente cliente = lista;
 
@@ -63,7 +63,7 @@ namespace Proyecto_ATM.Estructuras
 
         // Método para eliminar un cliente por su DNI.
         // Retorna true si se eliminó con éxito, false en caso contrario.
-        public bool eliminarCliente(int dni)
+        public bool eliminarCliente(string dni)
         {
             if (lista == null)
             {

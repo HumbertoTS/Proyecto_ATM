@@ -1,12 +1,12 @@
 [
   {
-    "dni": 12345678,
-    "nombre": "Juan",
-    "apellido": "Pérez",
+    "dni": "71814084",
+    "nombre": "Rigoberto",
+    "apellido": "Timana Gutierrez",
     "direccion": "Av. Lima 123",
-    "telefono": 987654321,
-    "email": "juan@gmail.com",
-    "pin": 1234,
+    "telefono": "987654321",
+    "email": "rigo@gmail.com",
+    "pin": "7181",
     "cuentas": [
       {
         "numeroCuenta": 1001,
@@ -21,13 +21,13 @@
     ]
   },
   {
-    "dni": 87654321,
+    "dni": "87654321",
     "nombre": "María",
     "apellido": "Gómez",
     "direccion": "Calle Los Fresnos 456",
-    "telefono": 911223344,
+    "telefono": "911223344",
     "email": "maria@gmail.com",
-    "pin": 4321,
+    "pin": "4321",
     "cuentas": [
       {
         "numeroCuenta": 2001,
@@ -42,13 +42,13 @@
     ]
   },
   {
-    "dni": 11223344,
+    "dni": "01234567",
     "nombre": "Carlos",
     "apellido": "Rodríguez",
     "direccion": "Jr. Trujillo 789",
-    "telefono": 955667788,
+    "telefono": "955667788",
     "email": "carlos@gmail.com",
-    "pin": 1111,
+    "pin": "0123",
     "cuentas": [
       {
         "numeroCuenta": 3001,

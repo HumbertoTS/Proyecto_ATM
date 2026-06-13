@@ -20,13 +20,13 @@ namespace Proyecto_ATM.UI
             Cliente cliente = null;
             while (cliente == null)
             {
-                int dni;
                 Console.WriteLine("\n ------------------------------------------------");
                 Console.WriteLine("| Bienvenido al ATM BCP. Por favor, inicie sesión |");
                 Console.WriteLine(" ------------------------------------------------");
                 Console.Write("Ingrese su DNI: ");
+                string dni = Console.ReadLine();
 
-                if (!int.TryParse(Console.ReadLine(), out dni))
+                if (string.IsNullOrEmpty(dni))
                 {
                     Console.WriteLine("\nDebe ingresar un DNI válido.");
                     continue;
@@ -49,16 +49,18 @@ namespace Proyecto_ATM.UI
             int intentos = 0;
             while (intentos < 3)
             {
-                int pin;
                 Console.Write("Ingrese su PIN: ");
                 string pinInput = LeerPin();
-                if (!int.TryParse(pinInput, out pin))
+
+                if (string.IsNullOrEmpty(pinInput) || pinInput.Length != 4)
                 {
-                    Console.WriteLine("\nDebe ingresar un PIN válido.");
+                    intentos++;
+                    Console.WriteLine("\nPIN inválido (debe tener 4 dígitos).");
+                    Console.WriteLine($"Intentos restantes: {3 - intentos}");
                     continue;
                 }
 
-                if (atm.validarPin(cliente, pin))
+                if (atm.validarPin(cliente, pinInput))
                 {
                     Console.Clear();
                     Console.WriteLine($"==========================================");
@@ -322,10 +324,11 @@ namespace Proyecto_ATM.UI
         {
             Console.WriteLine("--- CAMBIAR PIN DE ACCESO ---");
             Console.Write("Ingrese su PIN actual: ");
-            int pinActual;
-            if (!int.TryParse(LeerPin(), out pinActual))
+            string pinActual = LeerPin();
+
+            if (string.IsNullOrEmpty(pinActual) || pinActual.Length != 4)
             {
-                Console.WriteLine("\nPIN inválido.");
+                Console.WriteLine("\nPIN actual inválido (debe tener 4 dígitos).");
                 return;
             }
 
@@ -336,12 +339,7 @@ namespace Proyecto_ATM.UI
             }
 
             Console.Write("Ingrese su nuevo PIN (4 dígitos): ");
-            int nuevoPin;
-            if (!int.TryParse(LeerPin(), out nuevoPin))
-            {
-                Console.WriteLine("\nPIN nuevo inválido. Debe contener sólo números.");
-                return;
-            }
+            string nuevoPin = LeerPin();
 
             string mensaje;
             bool exito = cliente.cambiarPin(nuevoPin, out mensaje);

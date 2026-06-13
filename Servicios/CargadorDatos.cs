@@ -25,8 +25,8 @@ namespace Proyecto_ATM.Servicios
                 string jsonTexto = File.ReadAllText(rutaArchivo);
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 
-                // Deserializar el JSON a una colección genérica ArrayList de diccionarios
-                ArrayList datosClientes = (ArrayList)serializer.DeserializeObject(jsonTexto);
+                // Deserializar el JSON a una arreglo de objetos (diccionarios)
+                object[] datosClientes = (object[])serializer.DeserializeObject(jsonTexto);
 
                 if (datosClientes != null)
                 {
@@ -34,20 +34,20 @@ namespace Proyecto_ATM.Servicios
                     {
                         Dictionary<string, object> c = (Dictionary<string, object>)item;
 
-                        int dni = Convert.ToInt32(c["dni"]);
+                        string dni = c["dni"].ToString();
                         string nombre = c["nombre"].ToString();
                         string apellido = c["apellido"].ToString();
                         string direccion = c["direccion"].ToString();
-                        int telefono = Convert.ToInt32(c["telefono"]);
+                        string telefono = c["telefono"].ToString();
                         string email = c["email"].ToString();
-                        int pin = Convert.ToInt32(c["pin"]);
+                        string pin = c["pin"].ToString();
 
                         // Inicializar lista enlazada de cuentas para este cliente en memoria
                         ListaEnlazadaCuenta listaCuentas = new ListaEnlazadaCuenta();
 
                         if (c.ContainsKey("cuentas"))
                         {
-                            ArrayList datosCuentas = (ArrayList)c["cuentas"];
+                            object[] datosCuentas = (object[])c["cuentas"];
                             if (datosCuentas != null)
                             {
                                 foreach (object cuentaItem in datosCuentas)
