@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Proyecto_ATM
+﻿namespace Proyecto_ATM
 {
     internal class Cuenta
     {
@@ -40,6 +34,11 @@ namespace Proyecto_ATM
         //Método para retirar dinero de la cuenta.
         public bool retirar(decimal monto)
         {
+            if (monto <= 0)
+            {
+                return false;
+            }
+
             if (saldo >= monto)
             {
                 saldo -= monto;
