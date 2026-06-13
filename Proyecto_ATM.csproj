@@ -41,16 +41,18 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATM.cs" />
-    <Compile Include="Cliente.cs" />
-    <Compile Include="Cuenta.cs" />
-    <Compile Include="ListaEnlazadaCliente.cs" />
-    <Compile Include="ListaEnlazadaCuenta.cs" />
-    <Compile Include="ListaEnlazadaMovimiento.cs" />
-    <Compile Include="Menu.cs" />
-    <Compile Include="Movimiento.cs" />
+    <Compile Include="Modelos\Cliente.cs" />
+    <Compile Include="Modelos\Cuenta.cs" />
+    <Compile Include="Modelos\Movimiento.cs" />
+    <Compile Include="Estructuras\ListaEnlazadaCliente.cs" />
+    <Compile Include="Estructuras\ListaEnlazadaCuenta.cs" />
+    <Compile Include="Estructuras\ListaEnlazadaMovimiento.cs" />
+    <Compile Include="Servicios\ATM.cs" />
+    <Compile Include="Servicios\CargadorDatos.cs" />
+    <Compile Include="UI\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
