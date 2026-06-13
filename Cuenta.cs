@@ -24,11 +24,16 @@
         //Método para verificar si la cuenta tiene suficiente saldo.
         public bool tieneSaldo(decimal monto)
         {
-            return saldo >= monto;
+            return monto > 0 && saldo >= monto;
         }
         //Método para depositar dinero en la cuenta.
         public void depositar(decimal monto)
         {
+            if (monto <= 0)
+            {
+                return;
+            }
+
             saldo += monto;
         }
         //Método para retirar dinero de la cuenta.
@@ -39,13 +44,13 @@
                 return false;
             }
 
-            if (saldo >= monto)
+            if (!tieneSaldo(monto))
             {
-                saldo -= monto;
-                return true;
+                return false;
             }
 
-            return false;
+            saldo -= monto;
+            return true;
         }
     }
 }
