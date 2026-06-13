@@ -40,7 +40,8 @@ namespace Proyecto_ATM
         }
         //Método para insertar un nuevo cliente.
         public void insertaCliente(int dni, string nombre, string apellido, string direccion, int telefono,
-                                    string email, int pin, ListaEnlazadaCuenta cuenta){
+                                    string email, int pin, bool bloqueado, ListaEnlazadaCuenta cuenta)
+        {
             //Validar si el cliente ya existe antes de insertarlo.
             if (buscarPorDni(dni) != null)
             {
@@ -48,8 +49,32 @@ namespace Proyecto_ATM
                 return;
             }
 
+            if(!Cliente.contarDigitosDni(dni))
+            {
+                Console.WriteLine("El DNI debe tener 8 dígitos.");
+                return;
+            }
+
+            if (!Cliente.contarDigitosTelefono(telefono))
+            {
+                Console.WriteLine("Teléfono inválido.");
+                return;
+            }
+
+            if (!Cliente.validarEmail(email))
+            {
+                Console.WriteLine("Correo electrónico inválido.");
+                return;
+            }
+
+            if (!Cliente.contarDigitosPin(pin))
+            {
+                Console.WriteLine("PIN inválido.");
+                return;
+            }
+
             Cliente q = new Cliente(dni, nombre, apellido, direccion, telefono,
-                                    email, pin, cuenta);
+                                    email, pin, bloqueado, cuenta);
 
             if (lista == null)
             {
