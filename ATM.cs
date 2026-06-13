@@ -36,7 +36,9 @@ namespace Proyecto_ATM
             Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
 
             if (cuentaSeleccionada == null)
-                return;
+            { 
+                return; 
+            }
 
             Console.Clear();
             Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
