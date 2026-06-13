@@ -9,7 +9,6 @@ namespace Proyecto_ATM
 {
     internal class ATM
     {
-        
         public ListaEnlazadaCliente clientes;
         public ListaEnlazadaSolicitudCredito solicitudes;
         public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
@@ -43,20 +42,13 @@ namespace Proyecto_ATM
             Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
             Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
 
-            decimal monto;           
+            decimal monto;
 
             do
             {
                 Console.Write("\nIngrese el monto a retirar: S/. ");
-                string input = Console.ReadLine();
 
-                if (input.Contains("+") || input.Contains("-"))
-                {
-                    Console.WriteLine("No se permiten signos.");
-                    continue;
-                }
-
-                if (!decimal.TryParse(input, out monto) || monto <= 0)
+                if (!decimal.TryParse(Console.ReadLine(), out monto))
                 {
                     Console.WriteLine("Debe ingresar un monto válido.");
                     Thread.Sleep(1500);
@@ -111,7 +103,7 @@ namespace Proyecto_ATM
             {
                 Console.Write("\nIngrese el número de cuenta destino: ");
                 numeroCuentaDestino = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(numeroCuentaDestino) || !numeroCuentaDestino.All(char.IsDigit))
+                if (string.IsNullOrWhiteSpace(numeroCuentaDestino))
                 {
                     Console.WriteLine("Debe ingresar un número de cuenta válido.");
                     Thread.Sleep(1500);
@@ -143,15 +135,8 @@ namespace Proyecto_ATM
             do
             {
                 Console.Write("\nIngrese el monto a transferir: S/. ");
-                string input = Console.ReadLine();
 
-                if (input.Contains("+") || input.Contains("-"))
-                {
-                    Console.WriteLine("No se permiten signos.");
-                    continue;
-                }
-
-                if (!decimal.TryParse(input, out monto) || monto <= 0)
+                if (!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
                 {
                     Console.WriteLine("Debe ingresar un monto válido.");
                     Thread.Sleep(1500);                    
