@@ -12,6 +12,7 @@ namespace Proyecto_ATM
         {
             // Crear la lista de clientes
             ListaEnlazadaCliente listaClientes = new ListaEnlazadaCliente();
+            ListaEnlazadaCuenta listaCuentasMaria = new ListaEnlazadaCuenta();
 
             // Crear la lista de cuentas del cliente
             ListaEnlazadaCuenta listaCuentas = new ListaEnlazadaCuenta();
@@ -21,6 +22,21 @@ namespace Proyecto_ATM
 
             listaCuentas.agregarCuenta(cuenta1);
             listaCuentas.agregarCuenta(cuenta2);
+
+            listaCuentasMaria.agregarCuenta(new Cuenta(2001, "Ahorros", 1000));
+
+            listaCuentasMaria.agregarCuenta(new Cuenta(2002, "Corriente", 1500));
+
+            listaClientes.insertaCliente(
+                87654321,
+                "María",
+                "López",
+                "Av. Arequipa 456",
+                999888777,
+                "maria@gmail.com",
+                4321,
+                listaCuentasMaria
+            );
 
             // Registrar un cliente
             listaClientes.insertaCliente(
