@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Proyecto_ATM
+﻿namespace Proyecto_ATM
 {
     internal class Cuenta
     {
-        public int numeroCuenta;
+        public string numeroCuenta;
         public string tipoCuenta;
         private decimal saldo;
         public Movimiento movimientos; //se debe cambiar cuando se tenga listo la lista de movimientos
 
         public Cuenta sgte;
 
-        public Cuenta(int numeroCuenta, string tipoCuenta, decimal saldo)
+        public Cuenta(string numeroCuenta, string tipoCuenta, decimal saldo)
         {
             this.numeroCuenta = numeroCuenta;
             this.tipoCuenta = tipoCuenta;
@@ -30,23 +24,33 @@ namespace Proyecto_ATM
         //Método para verificar si la cuenta tiene suficiente saldo.
         public bool tieneSaldo(decimal monto)
         {
-            return saldo >= monto;
+            return monto > 0 && saldo >= monto;
         }
         //Método para depositar dinero en la cuenta.
         public void depositar(decimal monto)
         {
+            if (monto <= 0)
+            {
+                return;
+            }
+
             saldo += monto;
         }
         //Método para retirar dinero de la cuenta.
         public bool retirar(decimal monto)
         {
-            if (saldo >= monto)
+            if (monto <= 0)
             {
-                saldo -= monto;
-                return true;
+                return false;
             }
 
-            return false;
+            if (!tieneSaldo(monto))
+            {
+                return false;
+            }
+
+            saldo -= monto;
+            return true;
         }
     }
 }

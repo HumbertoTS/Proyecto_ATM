@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Proyecto_ATM
 {
     internal class Cliente
     {
-        public int dni;
+        public string dni;
         public string nombre;
         public string apellido;
         public string direccion;
         public int telefono;
         public string email;
-        public int pin;
+        public string pin;
         public bool bloqueado;
-        public ListaEnlazadaCuenta cuenta;
-        
+        public ListaEnlazadaCuenta cuentas;
+
         public Cliente sgte;
 
-        public Cliente(int dni, String nombre, String apellido,
-                    String direccion, int telefono, String email, int pin, ListaEnlazadaCuenta cuenta)
+        public Cliente(String dni, String nombre, String apellido,
+                    String direccion, int telefono, String email, String pin, bool bloqueado, ListaEnlazadaCuenta cuentas)
         {
             this.dni = dni;
             this.nombre = nombre;
@@ -30,15 +26,21 @@ namespace Proyecto_ATM
             this.telefono = telefono;
             this.email = email;
             this.pin = pin;
-            this.cuenta = cuenta;
+            this.bloqueado = bloqueado;
+            this.cuentas = cuentas;
 
             this.sgte = null;
         }
         //Método para contar los digitos.
         //Esto va a servir para validar la cantidad de digitos de DNI, telefono y pin.
         //deben ser de 8, 9 y 4 dígitos respectivamente.
-        public int contarDigitos(int numero)
+        public static int contarDigitos(int numero)
         {
+            if (numero == 0)
+            { 
+                return 1; 
+            }
+
             int contador = 0;
             while (numero != 0)
             {
@@ -49,38 +51,80 @@ namespace Proyecto_ATM
         }
 
         //Método para validar los digitos de dni.
-        public bool contarDigitosDni(int dni)
+        public static bool validarDni(string dni)
         {
-            return contarDigitos(dni) == 8;
+            if (string.IsNullOrWhiteSpace(dni))
+            {
+                return false;
+            }
+
+            if (dni.Length != 8)
+            {
+                return false;
+            }
+
+            foreach (char caracter in dni)
+            {
+                if (!char.IsDigit(caracter))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         //Método para validar los digitos de telefono.
-        public bool contarDigitosTelefono(int telefono)
+        public static bool contarDigitosTelefono(int telefono)
         {
-            return contarDigitos(telefono) == 9;
+            return telefono > 0 && contarDigitos(telefono) == 9;
         }
 
         //Método para validar los digitos de pin.
-        public bool contarDigitosPin(int pin)
+        public static bool validarPin(string pin)
         {
-            return contarDigitos(pin) == 4;
+            if (string.IsNullOrWhiteSpace(pin))
+            {
+                return false;
+            }
+
+            if (pin.Length != 4)
+            {
+                return false;
+            }
+
+            foreach (char caracter in pin)
+            {
+                if (!char.IsDigit(caracter))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         //Validar el formato del email, debe contener un "@" y un "." después del "@".
         //También valida que exista texto antes del "@".
         //Además, busca que exista el "." después del "@" por si existe un dominio.
-        public bool validarEmail(String email)
+        public static bool validarEmail(string email)
         {
-            int posicionArroba = email.IndexOf("@");
+            if (string.IsNullOrWhiteSpace(email))
+            { 
+                return false; 
+            }
+
+            int posicionArroba = email.IndexOf('@');
             int posicionPunto = email.LastIndexOf('.');
 
             return posicionArroba > 0 &&
-                   posicionPunto > posicionArroba;
+                   posicionPunto > posicionArroba + 1 &&
+                   posicionPunto < email.Length - 1;
         }
         //Método para validar el pin que ingresa el cliente.
-        public bool validarPinAcceso(int pinIngresado)
+        public bool validarPinAcceso(string pinIngresado)
         {
-            return this.pin == pinIngresado;
+            return pin == pinIngresado;
         }
 
         //Método para bloquear al cliente.
@@ -102,6 +146,6 @@ namespace Proyecto_ATM
         }
 
         //Se debe agregar un método para cambiar pin y validar el nuevo pin, debe ser de 4 dígitos y no puede ser igual al pin anterior.
-    
+
     }
 }
