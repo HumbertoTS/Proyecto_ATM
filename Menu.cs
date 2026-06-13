@@ -118,6 +118,7 @@ namespace Proyecto_ATM
                 Console.WriteLine("===================================");
                 Console.WriteLine("1. Retiro");
                 Console.WriteLine("2. Transferencia");
+                Console.WriteLine("3. Consultar Saldo");
                 Console.WriteLine("7. Solicitud de Crédito");
                 Console.WriteLine("8. Retiro sin Tarjeta");
                 Console.WriteLine("9. Pago de Servicios");
@@ -145,6 +146,16 @@ namespace Proyecto_ATM
 
                     case 2:
                         atm.transferencia(cliente);
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }
+                        break;
+
+                    case 3:
+                        Console.Clear();
+                        cliente.cuentas.mostrarCuentasSaldos();
                         if (!volverAlMenu())
                         {
                             Console.Clear();
