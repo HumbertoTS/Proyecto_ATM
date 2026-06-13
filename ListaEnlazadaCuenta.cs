@@ -49,6 +49,11 @@ namespace Proyecto_ATM
         // Método para agregar una cuenta.
         public void agregarCuenta(Cuenta nuevaCuenta)
         {
+            if (nuevaCuenta == null)
+            {
+                return;
+            }
+
             if (buscarCuenta(nuevaCuenta.numeroCuenta) != null)
             {
                 Console.WriteLine("Ya existe una cuenta con ese número.");
@@ -96,6 +101,7 @@ namespace Proyecto_ATM
             if (lista.numeroCuenta == numeroCuenta)
             {
                 lista = lista.sgte;
+                Console.WriteLine("Cuenta eliminada correctamente.");
                 return;
             }
             Cuenta cuenta = lista;
