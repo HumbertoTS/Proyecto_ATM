@@ -89,11 +89,12 @@ namespace Proyecto_ATM.UI
                 Console.WriteLine("            MENÚ OPERACIONES            ");
                 Console.WriteLine("========================================");
                 Console.WriteLine("1. Consultar Saldo");
-                Console.WriteLine("2. Retiro");
-                Console.WriteLine("3. Transferencia");
-                Console.WriteLine("4. Ver Historial de Movimientos");
-                Console.WriteLine("5. Cambiar PIN");
-                Console.WriteLine("6. Salir");
+                Console.WriteLine("2. Depósito");
+                Console.WriteLine("3. Retiro");
+                Console.WriteLine("4. Transferencia");
+                Console.WriteLine("5. Ver Historial de Movimientos");
+                Console.WriteLine("6. Cambiar PIN");
+                Console.WriteLine("7. Salir");
                 Console.WriteLine("========================================");
                 Console.Write("Seleccione una opción: ");
 
@@ -111,22 +112,26 @@ namespace Proyecto_ATM.UI
                         break;
 
                     case 2:
-                        ejecutarRetiro(cliente);
+                        ejecutarDeposito(cliente);
                         break;
 
                     case 3:
-                        ejecutarTransferencia(cliente);
+                        ejecutarRetiro(cliente);
                         break;
 
                     case 4:
-                        ejecutarVerMovimientos(cliente);
+                        ejecutarTransferencia(cliente);
                         break;
 
                     case 5:
-                        ejecutarCambioPin(cliente);
+                        ejecutarVerMovimientos(cliente);
                         break;
 
                     case 6:
+                        ejecutarCambioPin(cliente);
+                        break;
+
+                    case 7:
                         Console.WriteLine("Gracias por utilizar nuestro ATM. ¡Vuelva pronto!");
                         break;
 
@@ -135,7 +140,7 @@ namespace Proyecto_ATM.UI
                         break;
                 }
 
-            } while (opcion != 6);
+            } while (opcion != 7);
         }
 
         // Selecciona una cuenta del cliente imprimiendo las opciones en consola.
@@ -191,6 +196,31 @@ namespace Proyecto_ATM.UI
             if (cuenta != null)
             {
                 Console.WriteLine($"\nEl saldo de la cuenta N° {cuenta.numeroCuenta} ({cuenta.tipoCuenta}) es: S/ {cuenta.consultarSaldo():F2}");
+            }
+        }
+
+        // Lógica de interfaz para Depósitos.
+        private void ejecutarDeposito(Cliente cliente)
+        {
+            Console.WriteLine("--- REALIZAR DEPÓSITO ---");
+            Cuenta cuenta = seleccionarCuenta(cliente.cuenta);
+            if (cuenta == null) return;
+
+            Console.Write("Ingrese el monto a depositar: S/ ");
+            decimal monto;
+            if (decimal.TryParse(Console.ReadLine(), out monto))
+            {
+                string mensaje;
+                bool exito = atm.realizarDeposito(cuenta, monto, out mensaje);
+                Console.WriteLine($"\n{mensaje}");
+                if (exito)
+                {
+                    Console.WriteLine($"Nuevo saldo de la cuenta: S/ {cuenta.consultarSaldo():F2}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nMonto inválido.");
             }
         }
 

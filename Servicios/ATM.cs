@@ -43,6 +43,25 @@ namespace Proyecto_ATM.Servicios
             return null;
         }
 
+        // Método para realizar un Depósito.
+        public bool realizarDeposito(Cuenta cuenta, decimal monto, out string mensaje)
+        {
+            if (monto <= 0)
+            {
+                mensaje = "El monto a depositar debe ser mayor a cero.";
+                return false;
+            }
+
+            cuenta.depositar(monto);
+
+            // Registrar movimiento en el historial
+            Movimiento nuevoMov = new Movimiento("Depósito", monto, "Depósito en efectivo");
+            cuenta.movimientos.agregarMovimiento(nuevoMov);
+
+            mensaje = "Depósito realizado con éxito.";
+            return true;
+        }
+
         // Método para realizar un Retiro.
         public bool realizarRetiro(Cuenta cuenta, decimal monto, out string mensaje)
         {
