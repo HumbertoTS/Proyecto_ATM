@@ -21,11 +21,7 @@ namespace Proyecto_ATM
             this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
             this.pagosServicio = new ListaEnlazadaPagoServicio();
         }
-        //Método para validar pin.
-        public bool validarPin(Cliente cliente, int pin)
-        {
-            return cliente.validarPinAcceso(pin);
-        }
+        
         //Buscar cliente por DNI.
         public Cliente buscarCliente(int dni)
         {

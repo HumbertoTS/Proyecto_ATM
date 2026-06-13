@@ -26,7 +26,7 @@ namespace Proyecto_ATM
 
             //Cabecera de la tabla para mostrar los clientes.
             Console.WriteLine("-----------------------------------------------------------------------------------");
-            Console.WriteLine($"|{"DNI",-10} | {"Nombre",-15} | {"Apellido",-15} | |{"Teléfono",-12} | {"Email",-15}");
+            Console.WriteLine($"|{"DNI",-10} | {"Nombre",-15} | {"Apellido",-15} | {"Teléfono",-12} | {"Email",-15}");
             Console.WriteLine("-----------------------------------------------------------------------------------");
 
 

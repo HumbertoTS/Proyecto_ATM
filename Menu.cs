@@ -23,15 +23,26 @@ namespace Proyecto_ATM
             while (cliente == null)
             {
                 int dni;
-                
+
+                Console.Clear();
                 Console.WriteLine(" ------------------------------------------------");
-                Console.WriteLine("|Bienvenido al ATM BCP. Por favor, inicie sesión.|");
+                Console.WriteLine("|              Bienvenido al ATM BCP.           |");
+                Console.WriteLine("|             Por favor, inicie sesión.         |");
                 Console.WriteLine(" ------------------------------------------------");
-                Console.WriteLine("Ingrese su DNI: ");
+                Console.Write("Ingrese su DNI: ");
+
 
                 if (!int.TryParse(Console.ReadLine(), out dni))
                 {
                     Console.WriteLine("\nDebe ingresar un DNI válido.");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    continue;
+                }
+                if (!Cliente.contarDigitosDni(dni))
+                {
+                    Console.WriteLine("\nEl DNI debe tener 8 dígitos.");
+                    Thread.Sleep(2000);
                     continue;
                 }
 
@@ -40,12 +51,16 @@ namespace Proyecto_ATM
                 if (cliente == null)
                 {
                     Console.WriteLine("DNI no encontrado. Intente nuevamente.");
+                    Thread.Sleep(2000);
+                    Console.Clear();
                 }
             }
 
             if (cliente.verificarBloqueo())
             {
-                Console.WriteLine("El cliente se encuentra bloqueado");
+                Console.WriteLine("Se encuentra bloqueado por temas de seguridad o ingreso erróneo de pin.");
+                Console.WriteLine("Por favor, acercarse a plataforma para desbloquear su cuenta.");
+                Thread.Sleep(4000);
                 return;
             }
 
@@ -53,23 +68,25 @@ namespace Proyecto_ATM
             while(intentos < 3)
             {
                 int pin;
-                Console.WriteLine("Ingrese su PIN: ");
+                Console.Write("Ingrese su PIN: ");
                 string pinInput = LeerPin();                
                 if (!int.TryParse(pinInput, out pin))
                 {
-                    Console.WriteLine("Debe ingresar un PIN válido.");
+                    Console.WriteLine("Debe ingresar un PIN válido.\n");
+                    Thread.Sleep(2000);
+                    
                     continue;
                 }
 
-                if (atm.validarPin(cliente, pin))
+                if (cliente.validarPinAcceso(pin))
                 {
                     Console.Clear();
                     Console.WriteLine("===================================");
-                    Console.WriteLine("              ATM");
+                    Console.WriteLine("|              ATM                |");
                     Console.WriteLine("===================================");
-                    Console.WriteLine("Bienvenido " + cliente.nombre + cliente.apellido);
+                    Console.WriteLine("| Bienvenido " + cliente.nombre + " " + cliente.apellido +" |");
                     Console.WriteLine();
-                    Console.WriteLine("Tu banco, tu tranquilidad.");
+                    Console.WriteLine("|    Tu banco, tu tranquilidad.   |");
                     Console.WriteLine("===================================");
                     Thread.Sleep(2000);
                     mostrarMenu(cliente);
@@ -82,7 +99,8 @@ namespace Proyecto_ATM
 
             cliente.bloquearCliente();
             Console.WriteLine("El cliente ha sido bloqueado por exceder la cantidad de intentos");
-            Console.WriteLine("Por favor, acercarse a plataforma para desbloquear su cuenta");
+            Console.WriteLine("Por favor, acercarse a plataforma para desbloquear su cuenta.");
+            Thread.Sleep(4000);
             
         }
         //Método para mostrar el menú de opciones al cliente después de iniciar sesión exitosamente.
@@ -150,8 +168,10 @@ namespace Proyecto_ATM
                         break;
 
                     case 0:
+                        
                         Console.WriteLine("\nGracias por utilizar nuestro ATM.\n");
-                        Console.Clear();
+                        Thread.Sleep(2000);
+                        
                         return;
 
                     default:
@@ -161,7 +181,7 @@ namespace Proyecto_ATM
 
             } 
         }
-
+        //Método para consultar si desea volver al menú o solo salir.
         public bool volverAlMenu()
         {
             int opcion;

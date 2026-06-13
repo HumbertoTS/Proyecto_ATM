@@ -26,7 +26,7 @@ namespace Proyecto_ATM
             this.telefono = telefono;
             this.email = email;
             this.pin = pin;
-            this.bloqueado = false;
+            this.bloqueado = bloqueado;
             this.cuentas = cuentas;
 
             this.sgte = null;
