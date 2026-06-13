@@ -9,6 +9,7 @@ namespace Proyecto_ATM
 {
     internal class ATM
     {
+        
         public ListaEnlazadaCliente clientes;
         public ListaEnlazadaSolicitudCredito solicitudes;
         public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
@@ -23,7 +24,7 @@ namespace Proyecto_ATM
         }
         
         //Buscar cliente por DNI.
-        public Cliente buscarCliente(int dni)
+        public Cliente buscarCliente(string dni)
         {
             return clientes.buscarPorDni(dni);
         }
@@ -34,31 +35,45 @@ namespace Proyecto_ATM
             Console.WriteLine("===== RETIRO =====");
 
             Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
-            
-            if (cuentaSeleccionada == null)
-            {
-                return;
-            }
 
-            Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta);
+            if (cuentaSeleccionada == null)
+                return;
+
+            Console.Clear();
+            Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
             Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
 
-            Console.Write("\nIngrese el monto a retirar: S/. ");
+            decimal monto;           
 
-            if (!decimal.TryParse(Console.ReadLine(), out decimal monto))
+            do
             {
-                Console.WriteLine("Debe ingresar un monto válido.");
-                Console.ReadKey();
-                return;
-            }
+                Console.Write("\nIngrese el monto a retirar: S/. ");
+                string input = Console.ReadLine();
 
-            if (monto <= 0)
-            {
-                Console.WriteLine("El monto debe ser mayor a cero.");
-                Console.ReadKey();
-                return;
-            }
+                if (input.Contains("+") || input.Contains("-"))
+                {
+                    Console.WriteLine("No se permiten signos.");
+                    continue;
+                }
 
+                if (!decimal.TryParse(input, out monto) || monto <= 0)
+                {
+                    Console.WriteLine("Debe ingresar un monto válido.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                if (monto <= 0)
+                {
+                    Console.WriteLine("El monto debe ser mayor a cero.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+                       
             if (cuentaSeleccionada.retirar(monto))
             {
                 Console.WriteLine("\nRetiro realizado correctamente.");
@@ -70,6 +85,9 @@ namespace Proyecto_ATM
                 Console.WriteLine("\nSaldo insuficiente.");
                 Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
             }
+
+            Thread.Sleep(2000);
+            Console.Clear();
         }
         //Método para módulo transferencia.
         public void transferencia(Cliente cliente)
@@ -85,39 +103,66 @@ namespace Proyecto_ATM
             }
 
             Console.Write("\nSaldo disponible: S/. " + cuentaOrigen.consultarSaldo());
-            
-            Console.Write("\nIngrese el número de cuenta destino: ");
 
-            if(!int.TryParse(Console.ReadLine(), out int numeroCuentaDestino))
-            {
-                Console.WriteLine("Debe ingresar un número de cuenta válido.");
-                Console.ReadKey();
-                return;
-            }
+            string numeroCuentaDestino;
+            Cuenta cuentaDestino;
 
-            Cuenta cuentaDestino = buscarCuentaDestino(numeroCuentaDestino);
-            if(cuentaDestino == null)
+            do
             {
-                Console.WriteLine("Cuenta destino no encontrada.");
-                Console.ReadKey();
-                return;
-            }
-            //valida si el numero de cuenta del usuario es el mismo que va a transferir..
-            if (cuentaOrigen.numeroCuenta == cuentaDestino.numeroCuenta)
-            {
-                Console.WriteLine("No puede transferir a la misma cuenta.");
-                return;
-            }
+                Console.Write("\nIngrese el número de cuenta destino: ");
+                numeroCuentaDestino = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(numeroCuentaDestino) || !numeroCuentaDestino.All(char.IsDigit))
+                {
+                    Console.WriteLine("Debe ingresar un número de cuenta válido.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                cuentaDestino = buscarCuentaDestino(numeroCuentaDestino);
+
+                if (cuentaDestino == null)
+                {
+                    Console.WriteLine("Cuenta destino no encontrada.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                if (cuentaOrigen.numeroCuenta == cuentaDestino.numeroCuenta)
+                {
+                    Console.WriteLine("No puede transferir a la misma cuenta.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+
             decimal monto;
-            Console.Write("\nIngrese el monto a transferir: S/. " );
 
-            if(!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
+            do
             {
-                Console.WriteLine("Debe ingresar un monto válido.");
-                Console.ReadKey();
-                return;
-            }
+                Console.Write("\nIngrese el monto a transferir: S/. ");
+                string input = Console.ReadLine();
 
+                if (input.Contains("+") || input.Contains("-"))
+                {
+                    Console.WriteLine("No se permiten signos.");
+                    continue;
+                }
+
+                if (!decimal.TryParse(input, out monto) || monto <= 0)
+                {
+                    Console.WriteLine("Debe ingresar un monto válido.");
+                    Thread.Sleep(1500);                    
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+
+            Console.Clear();
             Console.WriteLine("\n===== RESUMEN DE TRANSFERENCIA =====");
             Console.WriteLine("Cuenta origen : " + cuentaOrigen.numeroCuenta);
             Console.WriteLine("Cuenta destino: " + cuentaDestino.numeroCuenta);
@@ -127,16 +172,19 @@ namespace Proyecto_ATM
             Console.WriteLine("0. Cancelar");
             Console.Write("Seleccione una opción: ");
 
-            if (!int.TryParse(Console.ReadLine(), out int opcion) || opcion != 1)
+            int opcion;
+            if (!int.TryParse(Console.ReadLine(), out opcion) || opcion != 1)
             {
                 Console.WriteLine("Transferencia cancelada.");
-                Console.ReadKey();
+                Thread.Sleep(1500);
+                Console.Clear();
                 return;
             }
 
             if (cuentaOrigen.retirar(monto))
             {
                 cuentaDestino.depositar(monto);
+
                 Console.WriteLine("\nTransferencia realizada correctamente.");
                 Console.WriteLine("Saldo actual: S/. " + cuentaOrigen.consultarSaldo());
             }
@@ -145,6 +193,8 @@ namespace Proyecto_ATM
                 Console.WriteLine("\nSaldo insuficiente.");
             }
 
+            Thread.Sleep(2000);
+            Console.Clear();
         }
 
         public void solicitarCredito(Cuenta cuenta)
@@ -298,7 +348,7 @@ namespace Proyecto_ATM
             }
         }
         // Método para buscar cuenta destino en transferencias.
-        public Cuenta buscarCuentaDestino(int numeroCuenta)
+        public Cuenta buscarCuentaDestino(string numeroCuenta)
         {
             Cliente cliente = clientes.lista;
 

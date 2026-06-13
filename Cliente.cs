@@ -4,20 +4,20 @@ namespace Proyecto_ATM
 {
     internal class Cliente
     {
-        public int dni;
+        public string dni;
         public string nombre;
         public string apellido;
         public string direccion;
         public int telefono;
         public string email;
-        public int pin;
+        public string pin;
         public bool bloqueado;
         public ListaEnlazadaCuenta cuentas;
 
         public Cliente sgte;
 
-        public Cliente(int dni, String nombre, String apellido,
-                    String direccion, int telefono, String email, int pin, bool bloqueado, ListaEnlazadaCuenta cuentas)
+        public Cliente(String dni, String nombre, String apellido,
+                    String direccion, int telefono, String email, String pin, bool bloqueado, ListaEnlazadaCuenta cuentas)
         {
             this.dni = dni;
             this.nombre = nombre;
@@ -51,9 +51,27 @@ namespace Proyecto_ATM
         }
 
         //Método para validar los digitos de dni.
-        public static bool contarDigitosDni(int dni)
+        public static bool validarDni(string dni)
         {
-            return dni > 0 && contarDigitos(dni) == 8;
+            if (string.IsNullOrWhiteSpace(dni))
+            {
+                return false;
+            }
+
+            if (dni.Length != 8)
+            {
+                return false;
+            }
+
+            foreach (char caracter in dni)
+            {
+                if (!char.IsDigit(caracter))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         //Método para validar los digitos de telefono.
@@ -63,9 +81,27 @@ namespace Proyecto_ATM
         }
 
         //Método para validar los digitos de pin.
-        public static bool contarDigitosPin(int pin)
+        public static bool validarPin(string pin)
         {
-            return pin > 0 && contarDigitos(pin) == 4;
+            if (string.IsNullOrWhiteSpace(pin))
+            {
+                return false;
+            }
+
+            if (pin.Length != 4)
+            {
+                return false;
+            }
+
+            foreach (char caracter in pin)
+            {
+                if (!char.IsDigit(caracter))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         //Validar el formato del email, debe contener un "@" y un "." después del "@".
@@ -86,7 +122,7 @@ namespace Proyecto_ATM
                    posicionPunto < email.Length - 1;
         }
         //Método para validar el pin que ingresa el cliente.
-        public bool validarPinAcceso(int pinIngresado)
+        public bool validarPinAcceso(string pinIngresado)
         {
             return pin == pinIngresado;
         }

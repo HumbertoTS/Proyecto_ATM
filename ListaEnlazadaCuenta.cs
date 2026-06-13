@@ -75,7 +75,7 @@ namespace Proyecto_ATM
             }
         }
         // Método para buscar una cuenta.
-        public Cuenta buscarCuenta(int numeroCuenta)
+        public Cuenta buscarCuenta(string numeroCuenta)
         {
             Cuenta cuenta = lista;
             while (cuenta != null)
@@ -89,7 +89,7 @@ namespace Proyecto_ATM
             return null;
         }
         //Método para eliminar una cuenta.
-        public void eliminarCuenta(int numeroCuenta)
+        public void eliminarCuenta(string numeroCuenta)
         {
             //En caso este vacío la lista
             if (lista == null)
@@ -161,7 +161,7 @@ namespace Proyecto_ATM
                 }
                 else
                 {
-                    Console.WriteLine("Debe ingresar un número.");
+                    Console.WriteLine("Debe escoger la opción de cuenta correcta.");
                 }
             }
 
