@@ -41,7 +41,7 @@ namespace Proyecto_ATM
             Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta);
             Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
 
-            Console.Write("\nIngrese el monto a retirar: ");
+            Console.Write("\nIngrese el monto a retirar: S/. ");
 
             if (!decimal.TryParse(Console.ReadLine(), out decimal monto))
             {
@@ -101,7 +101,8 @@ namespace Proyecto_ATM
                 return;
             }
             decimal monto;
-            Console.WriteLine("\nIngrese el monto a transferir: S/. ");
+            Console.Write("\nIngrese el monto a transferir: S/. " );
+
             if(!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
             {
                 Console.WriteLine("Debe ingresar un monto válido.");
