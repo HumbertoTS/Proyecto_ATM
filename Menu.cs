@@ -126,13 +126,12 @@ namespace Proyecto_ATM
                         break;
 
                     case 2:
-                        /*atm.transferencia(cliente);
+                        atm.transferencia(cliente);
                         if (!volverAlMenu())
                         {
                             Console.Clear();
                             return;
-                        }*/
-                        Console.WriteLine("Funcionalidad de transferencia aún no implementada.");
+                        }
                         break;
 
                     case 7:
