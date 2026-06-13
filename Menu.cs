@@ -85,8 +85,7 @@ namespace Proyecto_ATM
                     Console.WriteLine("===================================");
                     Console.WriteLine("|              ATM                |");
                     Console.WriteLine("===================================");
-                    Console.WriteLine("| Bienvenido " + cliente.nombre + " " + cliente.apellido +" |");
-                    Console.WriteLine();
+                    Console.WriteLine("|    Bienvenido " + cliente.nombre + " " + cliente.apellido +"   |");                    
                     Console.WriteLine("|    Tu banco, tu tranquilidad.   |");
                     Console.WriteLine("===================================");
                     Thread.Sleep(2000);
