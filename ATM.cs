@@ -9,10 +9,16 @@ namespace Proyecto_ATM
     internal class ATM
     {
         public ListaEnlazadaCliente clientes;
+        public ListaEnlazadaSolicitudCredito solicitudes;
+        public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
+        public ListaEnlazadaPagoServicio pagosServicio;
         //Constructor del ATM que recibe la lista de clientes.
         public ATM(ListaEnlazadaCliente clientes) { 
             
-            this.clientes = clientes;            
+            this.clientes = clientes;
+            this.solicitudes = new ListaEnlazadaSolicitudCredito();
+            this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
+            this.pagosServicio = new ListaEnlazadaPagoServicio();
         }
         //Método para validar pin.
         public bool validarPin(Cliente cliente, int pin)

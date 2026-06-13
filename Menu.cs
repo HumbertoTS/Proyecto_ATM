@@ -116,7 +116,7 @@ namespace Proyecto_ATM
                         Console.WriteLine("Funcionalidad de transferencia aún no implementada.");
                         break;
 
-                    /*case 7:
+                    case 7:
                         Cuenta cuentaCredito = cliente.cuenta.seleccionarCuenta();
                         atm.solicitarCredito(cuentaCredito);
                         break;
@@ -129,7 +129,7 @@ namespace Proyecto_ATM
                     case 9:
                         Cuenta cuentaPago = cliente.cuenta.seleccionarCuenta();
                         atm.pagoServicio(cuentaPago);
-                        break;*/
+                        break;
 
                     case 10:
                         Console.WriteLine("Gracias por utilizar nuestro ATM.");
