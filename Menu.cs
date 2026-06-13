@@ -154,17 +154,26 @@ namespace Proyecto_ATM
 
                     case 7:
                         Cuenta cuentaCredito = cliente.cuentas.seleccionarCuenta();
-                        atm.solicitarCredito(cuentaCredito);
+                        if (cuentaCredito != null)
+                        {
+                            atm.solicitarCredito(cuentaCredito);
+                        }                        
                         break;
 
                     case 8:
                         Cuenta cuentaRetiro = cliente.cuentas.seleccionarCuenta();
-                        atm.retiroSinTarjeta(cuentaRetiro);
+                        if (cuentaRetiro != null)
+                        {
+                            atm.retiroSinTarjeta(cuentaRetiro);
+                        }
                         break;
 
                     case 9:
                         Cuenta cuentaPago = cliente.cuentas.seleccionarCuenta();
-                        atm.pagoServicio(cuentaPago);
+                        if (cuentaPago != null)
+                        {
+                            atm.pagoServicio(cuentaPago);
+                        }
                         break;
 
                     case 0:

@@ -34,6 +34,12 @@ namespace Proyecto_ATM
             Console.WriteLine("===== RETIRO =====");
 
             Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
+            
+            if (cuentaSeleccionada == null)
+            {
+                return;
+            }
+
             Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta);
             Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
 
@@ -72,6 +78,12 @@ namespace Proyecto_ATM
             Console.WriteLine("===== TRANSFERENCIA =====");
 
             Cuenta cuentaOrigen = cliente.cuentas.seleccionarCuenta();
+
+            if (cuentaOrigen == null)
+            {
+                return;
+            }
+
             Console.Write("\nSaldo disponible: S/. " + cuentaOrigen.consultarSaldo());
             
             Console.Write("\nIngrese el número de cuenta destino: ");
