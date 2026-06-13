@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Proyecto_ATM
@@ -9,20 +10,64 @@ namespace Proyecto_ATM
     internal class ATM
     {
         public ListaEnlazadaCliente clientes;
+        public ListaEnlazadaSolicitudCredito solicitudes;
+        public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
+        public ListaEnlazadaPagoServicio pagosServicio;
         //Constructor del ATM que recibe la lista de clientes.
         public ATM(ListaEnlazadaCliente clientes) { 
             
-            this.clientes = clientes;            
+            this.clientes = clientes;
+            this.solicitudes = new ListaEnlazadaSolicitudCredito();
+            this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
+            this.pagosServicio = new ListaEnlazadaPagoServicio();
         }
         //Método para validar pin.
         public bool validarPin(Cliente cliente, int pin)
         {
             return cliente.validarPinAcceso(pin);
         }
-        
+        //Buscar cliente por DNI.
         public Cliente buscarCliente(int dni)
         {
             return clientes.buscarPorDni(dni);
+        }
+        //Método para retiro.
+        public void retiro(Cliente cliente)
+        {
+            Console.Clear();
+            Console.WriteLine("===== RETIRO =====");
+
+            Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
+            Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta);
+            Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
+
+            Console.Write("\nIngrese el monto a retirar: ");
+
+            if (!decimal.TryParse(Console.ReadLine(), out decimal monto))
+            {
+                Console.WriteLine("Debe ingresar un monto válido.");
+                Console.ReadKey();
+                return;
+            }
+
+            if (monto <= 0)
+            {
+                Console.WriteLine("El monto debe ser mayor a cero.");
+                Console.ReadKey();
+                return;
+            }
+
+            if (cuentaSeleccionada.retirar(monto))
+            {
+                Console.WriteLine("\nRetiro realizado correctamente.");
+                Console.WriteLine("Monto retirado: S/ " + monto);
+                Console.WriteLine("Saldo actual: S/ " + cuentaSeleccionada.consultarSaldo());
+            }
+            else
+            {
+                Console.WriteLine("\nSaldo insuficiente.");
+                Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
+            }
         }
 
         public void solicitarCredito(Cuenta cuenta)
@@ -168,6 +213,7 @@ namespace Proyecto_ATM
                 cuenta.retirar(monto);
                 pagosServicio.insertarPago(servicio, codigo, monto);
                 Console.WriteLine("Pago de " + servicio + " realizado correctamente.");
+                Thread.Sleep(2000);
             }
             else
             {

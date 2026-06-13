@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Proyecto_ATM
 {
@@ -16,12 +12,12 @@ namespace Proyecto_ATM
         public string email;
         public int pin;
         public bool bloqueado;
-        public ListaEnlazadaCuenta cuenta;
-        
+        public ListaEnlazadaCuenta cuentas;
+
         public Cliente sgte;
 
         public Cliente(int dni, String nombre, String apellido,
-                    String direccion, int telefono, String email, int pin, ListaEnlazadaCuenta cuenta)
+                    String direccion, int telefono, String email, int pin, ListaEnlazadaCuenta cuentas)
         {
             this.dni = dni;
             this.nombre = nombre;
@@ -30,7 +26,7 @@ namespace Proyecto_ATM
             this.telefono = telefono;
             this.email = email;
             this.pin = pin;
-            this.cuenta = cuenta;
+            this.cuentas = cuentas;
 
             this.sgte = null;
         }
@@ -102,6 +98,6 @@ namespace Proyecto_ATM
         }
 
         //Se debe agregar un método para cambiar pin y validar el nuevo pin, debe ser de 4 dígitos y no puede ser igual al pin anterior.
-    
+
     }
 }

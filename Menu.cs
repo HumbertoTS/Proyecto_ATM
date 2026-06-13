@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Proyecto_ATM
@@ -14,8 +15,7 @@ namespace Proyecto_ATM
         public Menu(ATM atm)
         {
             this.atm = atm;
-        }
-        
+        }        
         //Método para iniciar sesión del cliente.
         public void iniciarSesion()
         {
@@ -64,7 +64,14 @@ namespace Proyecto_ATM
                 if (atm.validarPin(cliente, pin))
                 {
                     Console.Clear();
-                    Console.WriteLine("Bienvenido " + cliente.nombre);
+                    Console.WriteLine("===================================");
+                    Console.WriteLine("              ATM");
+                    Console.WriteLine("===================================");
+                    Console.WriteLine("Bienvenido " + cliente.nombre + cliente.apellido);
+                    Console.WriteLine();
+                    Console.WriteLine("Tu banco, tu tranquilidad.");
+                    Console.WriteLine("===================================");
+                    Thread.Sleep(2000);
                     mostrarMenu(cliente);
                     return;
                 }
@@ -83,8 +90,10 @@ namespace Proyecto_ATM
         {
             int opcion;
 
-            do
+            while (true)
             {
+                Console.Clear();
+               
                 Console.WriteLine();
                 Console.WriteLine("===================================");
                 Console.WriteLine("              ATM");
@@ -94,53 +103,81 @@ namespace Proyecto_ATM
                 Console.WriteLine("7. Solicitud de Crédito");
                 Console.WriteLine("8. Retiro sin Tarjeta");
                 Console.WriteLine("9. Pago de Servicios");
-                Console.WriteLine("10. Salir");
+                Console.WriteLine("0. Salir");
                 Console.WriteLine("===================================");
                 Console.Write("Seleccione una opción: ");
 
                 if (!int.TryParse(Console.ReadLine(), out opcion))
                 {
                     Console.WriteLine("Debe ingresar una opción válida.");
+                    Console.ReadKey();
                     continue;
                 }
 
                 switch (opcion)
                 {
                     case 1:
-                        //atm.retiro(cliente);
-                        Console.WriteLine("Funcionalidad de retiro aún no implementada.");
+                        atm.retiro(cliente);
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }                        
                         break;
 
                     case 2:
-                        //atm.transferencia(cliente);
+                        /*atm.transferencia(cliente);
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }*/
                         Console.WriteLine("Funcionalidad de transferencia aún no implementada.");
                         break;
 
-                    /*case 7:
-                        Cuenta cuentaCredito = cliente.cuenta.seleccionarCuenta();
+                    case 7:
+                        Cuenta cuentaCredito = cliente.cuentas.seleccionarCuenta();
                         atm.solicitarCredito(cuentaCredito);
                         break;
 
                     case 8:
-                        Cuenta cuentaRetiro = cliente.cuenta.seleccionarCuenta();
+                        Cuenta cuentaRetiro = cliente.cuentas.seleccionarCuenta();
                         atm.retiroSinTarjeta(cuentaRetiro);
                         break;
 
                     case 9:
-                        Cuenta cuentaPago = cliente.cuenta.seleccionarCuenta();
+                        Cuenta cuentaPago = cliente.cuentas.seleccionarCuenta();
                         atm.pagoServicio(cuentaPago);
-                        break;*/
-
-                    case 10:
-                        Console.WriteLine("Gracias por utilizar nuestro ATM.");
                         break;
+
+                    case 0:
+                        Console.WriteLine("\nGracias por utilizar nuestro ATM.\n");
+                        Console.Clear();
+                        return;
 
                     default:
                         Console.WriteLine("Opción no válida.");
                         break;
                 }
 
-            } while (opcion != 3);
+            } 
+        }
+
+        public bool volverAlMenu()
+        {
+            int opcion;
+
+            do
+            {
+                Console.WriteLine("\n¿Desea realizar otra operación?");
+                Console.WriteLine("0. No");
+                Console.WriteLine("1. Sí");                
+                Console.Write("Seleccione una opción: ");
+
+            } while (!int.TryParse(Console.ReadLine(), out opcion) ||
+                     (opcion != 0 && opcion != 1));
+
+            return opcion == 1;
         }
         //Método para leer el PIN ingresado por el cliente, ocultando los caracteres.
         private string LeerPin()
