@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Proyecto_ATM
 {
@@ -14,14 +10,15 @@ namespace Proyecto_ATM
         public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
         public ListaEnlazadaPagoServicio pagosServicio;
         //Constructor del ATM que recibe la lista de clientes.
-        public ATM(ListaEnlazadaCliente clientes) { 
-            
+        public ATM(ListaEnlazadaCliente clientes)
+        {
+
             this.clientes = clientes;
             this.solicitudes = new ListaEnlazadaSolicitudCredito();
             this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
             this.pagosServicio = new ListaEnlazadaPagoServicio();
         }
-        
+
         //Buscar cliente por DNI.
         public Cliente buscarCliente(string dni)
         {
@@ -42,8 +39,8 @@ namespace Proyecto_ATM
             Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
 
             if (cuentaSeleccionada == null)
-            { 
-                return; 
+            {
+                return;
             }
 
             Console.Clear();
@@ -73,7 +70,7 @@ namespace Proyecto_ATM
                 break;
 
             } while (true);
-                       
+
             if (cuentaSeleccionada.retirar(monto))
             {
                 cuentaSeleccionada.movimientos.registrarMovimientoPush("Retiro", monto, "Retiro por cajero");
@@ -148,7 +145,7 @@ namespace Proyecto_ATM
                 if (!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
                 {
                     Console.WriteLine("Debe ingresar un monto válido.");
-                    Thread.Sleep(1500);                    
+                    Thread.Sleep(1500);
                     continue;
                 }
 
@@ -469,7 +466,7 @@ namespace Proyecto_ATM
 
             Console.Clear();
             Console.WriteLine("\nHistorial de la cuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
-            
+
             cuentaSeleccionada.movimientos.mostrarHistorial();
 
             Console.WriteLine("\nPresione cualquier tecla para continuar...");
@@ -485,7 +482,7 @@ namespace Proyecto_ATM
             {
                 Cuenta cuentaDestino = cliente.cuentas.buscarCuenta(numeroCuenta);
 
-                if(cuentaDestino != null)
+                if (cuentaDestino != null)
                 {
                     return cuentaDestino;
                 }
@@ -598,8 +595,9 @@ namespace Proyecto_ATM
         public void reportes()
         {
             Console.Clear();
-
             clientes.reporteClientes();
+            Thread.Sleep(10000);
+            Console.Clear();
         }
     }
 }
