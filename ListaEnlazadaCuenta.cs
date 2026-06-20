@@ -45,7 +45,35 @@ namespace Proyecto_ATM
             }
 
             Console.WriteLine("-----------------------------------------------------------");
-        }     
+        }
+        //Método para la opción de Consultar Saldo.
+        public void mostrarCuentasSaldos()
+        {
+            Cuenta cuenta = lista;
+
+            if (cuenta == null)
+            {
+                Console.WriteLine("No hay cuentas registradas.");
+                return;
+            }
+
+            int posicion = 1;
+            Console.WriteLine("---------------------------------------------------------");
+            Console.WriteLine($" |{ "MIS CUENTAS Y SALDOS".PadLeft(35).PadRight(35)}| ");
+            Console.WriteLine("---------------------------------------------------------");
+            Console.WriteLine($"| {"Opción",-8} | {"N° Cuenta",-12} | {"Tipo",-15} | {"Saldo",-12}|");
+            Console.WriteLine("---------------------------------------------------------");
+
+            while (cuenta != null)
+            {
+                Console.WriteLine($"| {posicion,-8} | {cuenta.numeroCuenta,-12} | {cuenta.tipoCuenta,-15} | S/ {cuenta.consultarSaldo(),-12} |");
+
+                posicion++;
+                cuenta = cuenta.sgte;
+            }
+
+            Console.WriteLine("-----------------------------------------------------------------");
+        }        
         // Método para agregar una cuenta.
         public void agregarCuenta(Cuenta nuevaCuenta)
         {
@@ -75,7 +103,7 @@ namespace Proyecto_ATM
             }
         }
         // Método para buscar una cuenta.
-        public Cuenta buscarCuenta(int numeroCuenta)
+        public Cuenta buscarCuenta(string numeroCuenta)
         {
             Cuenta cuenta = lista;
             while (cuenta != null)
@@ -89,7 +117,7 @@ namespace Proyecto_ATM
             return null;
         }
         //Método para eliminar una cuenta.
-        public void eliminarCuenta(int numeroCuenta)
+        public void eliminarCuenta(string numeroCuenta)
         {
             //En caso este vacío la lista
             if (lista == null)
@@ -161,7 +189,7 @@ namespace Proyecto_ATM
                 }
                 else
                 {
-                    Console.WriteLine("Debe ingresar un número.");
+                    Console.WriteLine("Debe escoger la opción de cuenta correcta.");
                 }
             }
 

@@ -39,8 +39,8 @@ namespace Proyecto_ATM
             Console.WriteLine("-----------------------------------------------------------------------------------");
         }
         //Método para insertar un nuevo cliente.
-        public void insertaCliente(int dni, string nombre, string apellido, string direccion, int telefono,
-                                    string email, int pin, bool bloqueado, ListaEnlazadaCuenta cuenta)
+        public void insertaCliente(string dni, string nombre, string apellido, string direccion, int telefono,
+                                    string email, string pin, bool bloqueado, ListaEnlazadaCuenta cuenta)
         {
             //Validar si el cliente ya existe antes de insertarlo.
             if (buscarPorDni(dni) != null)
@@ -49,7 +49,7 @@ namespace Proyecto_ATM
                 return;
             }
 
-            if(!Cliente.contarDigitosDni(dni))
+            if(!Cliente.validarDni(dni))
             {
                 Console.WriteLine("El DNI debe tener 8 dígitos.");
                 return;
@@ -67,7 +67,7 @@ namespace Proyecto_ATM
                 return;
             }
 
-            if (!Cliente.contarDigitosPin(pin))
+            if (!Cliente.validarPin(pin))
             {
                 Console.WriteLine("PIN inválido.");
                 return;
@@ -91,7 +91,7 @@ namespace Proyecto_ATM
             }
         }
 
-        public Cliente buscarPorDni(int dni)
+        public Cliente buscarPorDni(string dni)
         {
             Cliente cliente = lista;
 
@@ -108,7 +108,7 @@ namespace Proyecto_ATM
             return null;
         }
         //Método para eliminar un cliente por su DNI.
-        public bool eliminarCliente(int dni)
+        public bool eliminarCliente(string dni)
         {
             if (lista == null)
             {

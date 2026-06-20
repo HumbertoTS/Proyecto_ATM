@@ -22,7 +22,7 @@ namespace Proyecto_ATM
             Cliente cliente = null;
             while (cliente == null)
             {
-                int dni;
+                string dni;
 
                 Console.Clear();
                 Console.WriteLine(" ------------------------------------------------");
@@ -31,18 +31,20 @@ namespace Proyecto_ATM
                 Console.WriteLine(" ------------------------------------------------");
                 Console.Write("Ingrese su DNI: ");
 
-
-                if (!int.TryParse(Console.ReadLine(), out dni))
+                dni = Console.ReadLine();
+                if (!Cliente.validarDni(dni))
                 {
                     Console.WriteLine("\nDebe ingresar un DNI válido.");
                     Thread.Sleep(2000);
                     Console.Clear();
                     continue;
                 }
-                if (!Cliente.contarDigitosDni(dni))
+
+                if (!Cliente.validarDni(dni))
                 {
                     Console.WriteLine("\nEl DNI debe tener 8 dígitos.");
                     Thread.Sleep(2000);
+                    Console.Clear();
                     continue;
                 }
 
@@ -67,10 +69,9 @@ namespace Proyecto_ATM
             int intentos = 0;
             while(intentos < 3)
             {
-                int pin;
                 Console.Write("Ingrese su PIN: ");
-                string pinInput = LeerPin();                
-                if (!int.TryParse(pinInput, out pin))
+                string pin = LeerPin();                
+                if (!Cliente.validarPin(pin))
                 {
                     Console.WriteLine("Debe ingresar un PIN válido.\n");
                     Thread.Sleep(2000);
@@ -84,8 +85,7 @@ namespace Proyecto_ATM
                     Console.WriteLine("===================================");
                     Console.WriteLine("|              ATM                |");
                     Console.WriteLine("===================================");
-                    Console.WriteLine("| Bienvenido " + cliente.nombre + " " + cliente.apellido +" |");
-                    Console.WriteLine();
+                    Console.WriteLine("|    Bienvenido " + cliente.nombre + " " + cliente.apellido +"   |");                    
                     Console.WriteLine("|    Tu banco, tu tranquilidad.   |");
                     Console.WriteLine("===================================");
                     Thread.Sleep(2000);
@@ -118,6 +118,7 @@ namespace Proyecto_ATM
                 Console.WriteLine("===================================");
                 Console.WriteLine("1. Retiro");
                 Console.WriteLine("2. Transferencia");
+                Console.WriteLine("3. Consultar Saldo");
                 Console.WriteLine("7. Solicitud de Crédito");
                 Console.WriteLine("8. Retiro sin Tarjeta");
                 Console.WriteLine("9. Pago de Servicios");
@@ -152,6 +153,16 @@ namespace Proyecto_ATM
                         }
                         break;
 
+                    case 3:
+                        Console.Clear();
+                        cliente.cuentas.mostrarCuentasSaldos();
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }
+                        break;
+
                     case 7:
                         Cuenta cuentaCredito = cliente.cuentas.seleccionarCuenta();
                         if (cuentaCredito != null)
@@ -178,13 +189,14 @@ namespace Proyecto_ATM
 
                     case 0:
                         
-                        Console.WriteLine("\nGracias por utilizar nuestro ATM.\n");
+                        Console.WriteLine("\nGracias por usar el sistema. ¡Hasta luego!\n");
                         Thread.Sleep(2000);
                         
                         return;
 
                     default:
                         Console.WriteLine("Opción no válida.");
+                        Thread.Sleep(2000);
                         break;
                 }
 
@@ -199,13 +211,20 @@ namespace Proyecto_ATM
             {
                 Console.WriteLine("\n¿Desea realizar otra operación?");
                 Console.WriteLine("0. No");
-                Console.WriteLine("1. Sí");                
+                Console.WriteLine("1. Sí");
                 Console.Write("Seleccione una opción: ");
 
             } while (!int.TryParse(Console.ReadLine(), out opcion) ||
                      (opcion != 0 && opcion != 1));
+            {
+                if (opcion == 0)
+                {
+                    Console.WriteLine("\nGracias por usar el sistema. ¡Hasta luego!");
+                    Thread.Sleep(2000);
+                }
 
-            return opcion == 1;
+                return opcion == 1; 
+            }
         }
         //Método para leer el PIN ingresado por el cliente, ocultando los caracteres.
         private string LeerPin()

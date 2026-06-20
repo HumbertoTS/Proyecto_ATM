@@ -2,14 +2,14 @@
 {
     internal class Cuenta
     {
-        public int numeroCuenta;
+        public string numeroCuenta;
         public string tipoCuenta;
         private decimal saldo;
         public Movimiento movimientos; //se debe cambiar cuando se tenga listo la lista de movimientos
 
         public Cuenta sgte;
 
-        public Cuenta(int numeroCuenta, string tipoCuenta, decimal saldo)
+        public Cuenta(string numeroCuenta, string tipoCuenta, decimal saldo)
         {
             this.numeroCuenta = numeroCuenta;
             this.tipoCuenta = tipoCuenta;
