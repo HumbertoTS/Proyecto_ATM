@@ -15,44 +15,83 @@ namespace Proyecto_ATM
         public Menu(ATM atm)
         {
             this.atm = atm;
-        }        
+        }
+
+        //Menú Principal
+        public void menuPrincipal()
+        {
+            int opcion;
+
+            do
+            {
+                Console.Clear();
+
+                Console.WriteLine("=================");
+                Console.WriteLine("       ATM");
+                Console.WriteLine("=================");
+                Console.WriteLine("1. Cliente");
+                Console.WriteLine("2. Administrador");
+                Console.WriteLine("0. Salir");
+                Console.Write("Seleccione: ");
+
+                opcion = int.Parse(Console.ReadLine());
+
+
+                switch (opcion)
+                {
+                    case 1:
+                        iniciarSesion();
+                        break;
+
+                    case 2:
+                        iniciarSesionAdmin();
+                        break;
+
+                    case 0:
+                        Console.WriteLine("\nCerrando sistema...");
+                        Thread.Sleep(2000);
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.WriteLine("Opción inválida.");
+                        Thread.Sleep(1500);
+                        break;
+                }
+
+            } while (opcion != 0);
+        }
+
+        //Menú para clientes
         //Método para iniciar sesión del cliente.
         public void iniciarSesion()
         {
             Cliente cliente = null;
             while (cliente == null)
             {
-                string dni;
+                string tarjeta;
 
                 Console.Clear();
                 Console.WriteLine(" ------------------------------------------------");
                 Console.WriteLine("|              Bienvenido al ATM BCP.           |");
                 Console.WriteLine("|             Por favor, inicie sesión.         |");
                 Console.WriteLine(" ------------------------------------------------");
-                Console.Write("Ingrese su DNI: ");
+                Console.Write("Ingrese su número de tarjeta: ");
 
-                dni = Console.ReadLine();
-                if (!Cliente.validarDni(dni))
+                tarjeta = Console.ReadLine();
+                if (!Cliente.validarTarjeta(tarjeta))
                 {
-                    Console.WriteLine("\nDebe ingresar un DNI válido.");
+                    Console.WriteLine("\nDebe ingresar una tarjeta válida.");
                     Thread.Sleep(2000);
                     Console.Clear();
                     continue;
                 }
 
-                if (!Cliente.validarDni(dni))
-                {
-                    Console.WriteLine("\nEl DNI debe tener 8 dígitos.");
-                    Thread.Sleep(2000);
-                    Console.Clear();
-                    continue;
-                }
-
-                cliente = atm.buscarCliente(dni);
+                cliente = atm.buscarClientePorTarjeta(tarjeta);
 
                 if (cliente == null)
                 {
-                    Console.WriteLine("DNI no encontrado. Intente nuevamente.");
+                    Console.WriteLine("No se encontró el número de tarjeta. Intente nuevamente.");
                     Thread.Sleep(2000);
                     Console.Clear();
                 }
@@ -159,11 +198,11 @@ namespace Proyecto_ATM
                     case 3:
                         Console.Clear();
                         cliente.cuentas.mostrarCuentasSaldos();
-                        if (!volverAlMenu())
+                        /*if (!volverAlMenu())
                         {
                             Console.Clear();
                             return;
-                        }
+                        }*/
                         break;
 
                     case 4:
@@ -284,6 +323,76 @@ namespace Proyecto_ATM
                     Console.Write("*");
                 }
             }
+        }
+
+        //Menú para administrador
+        public void iniciarSesionAdmin()
+        {
+            string codigo = "1596";
+            string passwordAdmin = "1234";
+            Console.Clear();
+            Console.WriteLine(" ------------------------------------------------");
+            Console.WriteLine("|          Bienvenido al ATM BCP Admin.         |");
+            Console.WriteLine("|             Por favor, inicie sesión.         |");
+            Console.WriteLine(" ------------------------------------------------");
+            Console.Write("Ingrese su código: ");
+            string usuario = Console.ReadLine();
+            Console.Write("Ingrese su pin: ");
+            string password = LeerPin();
+            if (usuario == codigo && password == passwordAdmin)
+            {
+                Console.Clear();
+                Console.WriteLine("===================================");
+                Console.WriteLine("|              ATM Admin           |");
+                Console.WriteLine("===================================");
+                Console.WriteLine("|    Bienvenido Administrador      |");
+                Console.WriteLine("|    Tu banco, tu tranquilidad.   |");
+                Console.WriteLine("===================================");
+                Thread.Sleep(2000);
+                menuAdmin();
+            }
+            else
+            {
+                Console.WriteLine("\nUsuario o contraseña incorrectos.");
+                Thread.Sleep(2000);
+            }
+        }
+
+        public void menuAdmin()
+        {
+            int opcion;
+
+            do
+            {
+                Console.Clear();
+
+                Console.WriteLine("======= ADMIN =======");
+                Console.WriteLine("1. Crear cuenta");
+                Console.WriteLine("2. Asignar tarjeta");
+                Console.WriteLine("3. Reportes");
+                Console.WriteLine("0. Volver");
+
+                Console.Write("Seleccione: ");
+
+                opcion = int.Parse(Console.ReadLine());
+
+
+                switch (opcion)
+                {
+                    case 1:
+                        atm.crearCuenta();
+                        break;
+
+                    case 2:
+                        atm.asignarTarjeta();
+                        break;
+
+                    case 3:
+                        atm.reportes();
+                        break;
+                }                
+
+            } while (opcion != 0);
         }
     }
 }

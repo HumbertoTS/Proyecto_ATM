@@ -27,6 +27,12 @@ namespace Proyecto_ATM
         {
             return clientes.buscarPorDni(dni);
         }
+
+        public Cliente buscarClientePorTarjeta(string tarjeta)
+        {
+            return clientes.buscarPorTarjeta(tarjeta);
+        }
+
         //Método para retiro.
         public void retiro(Cliente cliente)
         {
@@ -488,6 +494,112 @@ namespace Proyecto_ATM
             }
 
             return null;
+        }
+
+        //ATM ADMINISTRADOR
+        public void crearCuenta()
+        {
+            Console.Clear();
+
+            Console.WriteLine("====== CREAR CUENTA ======");
+
+            Console.Write("Ingrese DNI del cliente: ");
+            string dni = Console.ReadLine();
+
+
+            Cliente cliente = clientes.buscarPorDni(dni);
+
+
+            if (cliente == null)
+            {
+                Console.WriteLine("Cliente no encontrado.");
+                return;
+            }
+
+
+            Console.Write("Número de cuenta: ");
+            string numeroCuenta = Console.ReadLine();
+
+
+            Console.Write("Tipo de cuenta: ");
+            string tipoCuenta = Console.ReadLine();
+
+
+            Console.Write("Saldo inicial: ");
+            decimal saldo;
+
+            if (!decimal.TryParse(Console.ReadLine(), out saldo) || saldo < 0)
+            {
+                Console.WriteLine("Saldo inválido.");
+                return;
+            }
+
+
+            Cuenta nuevaCuenta = new Cuenta(
+                numeroCuenta,
+                tipoCuenta,
+                saldo
+            );
+
+
+            cliente.cuentas.agregarCuenta(nuevaCuenta);
+
+
+            Console.WriteLine("\nCuenta creada correctamente.");
+        }
+
+        public void asignarTarjeta()
+        {
+            Console.Clear();
+
+            Console.WriteLine("====== REEMPLAZAR TARJETA ======");
+
+            Console.Write("Ingrese DNI del cliente: ");
+            string dni = Console.ReadLine();
+
+
+            Cliente cliente = clientes.buscarPorDni(dni);
+
+
+            if (cliente == null)
+            {
+                Console.WriteLine("Cliente no encontrado.");
+                Console.ReadKey();
+                return;
+            }
+
+
+            Console.WriteLine("Cliente encontrado:");
+            Console.WriteLine(cliente.nombre + " " + cliente.apellido);
+
+
+            Console.WriteLine("Tarjeta actual: " + cliente.tarjeta);
+
+
+            Console.Write("Ingrese nueva tarjeta: ");
+            string nuevaTarjeta = Console.ReadLine();
+
+
+            if (!Cliente.validarTarjeta(nuevaTarjeta))
+            {
+                Console.WriteLine("Tarjeta inválida.");
+                Console.ReadKey();
+                return;
+            }
+
+
+            cliente.tarjeta = nuevaTarjeta;
+
+
+            Console.WriteLine("Tarjeta reemplazada correctamente.");
+            Console.ReadKey();
+        }
+
+        public void reportes()
+        {
+            Console.Clear();
+
+            clientes.reporteClientes();
         }
     }
 }

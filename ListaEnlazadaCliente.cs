@@ -40,7 +40,7 @@ namespace Proyecto_ATM
         }
         //Método para insertar un nuevo cliente.
         public void insertaCliente(string dni, string nombre, string apellido, string direccion, int telefono,
-                                    string email, string pin, bool bloqueado, ListaEnlazadaCuenta cuenta)
+                                    string email, string tarjeta, string pin, bool bloqueado, ListaEnlazadaCuenta cuenta)
         {
             //Validar si el cliente ya existe antes de insertarlo.
             if (buscarPorDni(dni) != null)
@@ -74,7 +74,7 @@ namespace Proyecto_ATM
             }
 
             Cliente q = new Cliente(dni, nombre, apellido, direccion, telefono,
-                                    email, pin, bloqueado, cuenta);
+                                    email, tarjeta, pin, bloqueado, cuenta);
 
             if (lista == null)
             {
@@ -107,6 +107,24 @@ namespace Proyecto_ATM
 
             return null;
         }
+
+         public Cliente buscarPorTarjeta(string tarjeta)
+         {
+             Cliente cliente = lista;
+
+             while (cliente != null)
+             {
+                 if (cliente.tarjeta == tarjeta)
+                 {
+                     return cliente;
+                 }
+
+                 cliente = cliente.sgte;
+             }
+
+             return null;
+         }              
+
         //Método para eliminar un cliente por su DNI.
         public bool eliminarCliente(string dni)
         {
@@ -139,6 +157,68 @@ namespace Proyecto_ATM
 
             Console.WriteLine("Cliente no encontrado.");
             return false;
+        }
+               
+
+        public void reporteClientes()
+        {
+            Cliente cliente = lista;
+
+            if (cliente == null)
+            {
+                Console.WriteLine("No hay clientes registrados.");
+                return;
+            }
+
+
+            int contador = 0;
+
+
+            Console.WriteLine("================================================");
+            Console.WriteLine("              REPORTE DE CLIENTES");
+            Console.WriteLine("================================================");
+
+
+            while (cliente != null)
+            {
+                contador++;
+
+                Console.WriteLine("\nCliente N° " + contador);
+                Console.WriteLine("DNI: " + cliente.dni);
+                Console.WriteLine("Nombre: " + cliente.nombre + " " + cliente.apellido);
+                Console.WriteLine("Teléfono: " + cliente.telefono);
+                Console.WriteLine("Email: " + cliente.email);
+
+                if (string.IsNullOrEmpty(cliente.tarjeta))
+                {
+                    Console.WriteLine("Tarjeta: Sin asignar");
+                }
+                else
+                {
+                    Console.WriteLine("Tarjeta: " + cliente.tarjeta);
+                }
+
+
+                if (cliente.cuentas != null)
+                {
+                    Console.WriteLine("Cuentas:");
+                    Console.WriteLine("--------------------------------");
+
+                    cliente.cuentas.mostrarCuentasReporte();
+                }
+                else
+                {
+                    Console.WriteLine("Sin cuentas registradas.");
+                }
+
+
+                Console.WriteLine("--------------------------------");
+
+
+                cliente = cliente.sgte;
+            }
+
+            Console.WriteLine("Total de clientes: " + contador);
         }
     }
 }
