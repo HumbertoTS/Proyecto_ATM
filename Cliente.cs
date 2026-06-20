@@ -10,6 +10,7 @@ namespace Proyecto_ATM
         public string direccion;
         public int telefono;
         public string email;
+        public string tarjeta;
         public string pin;
         public bool bloqueado;
         public ListaEnlazadaCuenta cuentas;
@@ -17,7 +18,7 @@ namespace Proyecto_ATM
         public Cliente sgte;
 
         public Cliente(String dni, String nombre, String apellido,
-                    String direccion, int telefono, String email, String pin, bool bloqueado, ListaEnlazadaCuenta cuentas)
+                    String direccion, int telefono, String email, String tarjeta, String pin, bool bloqueado, ListaEnlazadaCuenta cuentas)
         {
             this.dni = dni;
             this.nombre = nombre;
@@ -25,6 +26,7 @@ namespace Proyecto_ATM
             this.direccion = direccion;
             this.telefono = telefono;
             this.email = email;
+            this.tarjeta = tarjeta;
             this.pin = pin;
             this.bloqueado = bloqueado;
             this.cuentas = cuentas;
@@ -66,6 +68,29 @@ namespace Proyecto_ATM
             foreach (char caracter in dni)
             {
                 if (!char.IsDigit(caracter))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool validarTarjeta(string tarjeta)
+        {
+            if (string.IsNullOrWhiteSpace(tarjeta))
+            {
+                return false;
+            }
+
+            if (tarjeta.Length != 10)//luego cambiar a 16 digitos.
+            {
+                return false;
+            }
+
+            foreach (char c in tarjeta)
+            {
+                if (!char.IsDigit(c))
                 {
                     return false;
                 }

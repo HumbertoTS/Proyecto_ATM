@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +27,12 @@ namespace Proyecto_ATM
         {
             return clientes.buscarPorDni(dni);
         }
+
+        public Cliente buscarClientePorTarjeta(string tarjeta)
+        {
+            return clientes.buscarPorTarjeta(tarjeta);
+        }
+
         //Método para retiro.
         public void retiro(Cliente cliente)
         {
@@ -70,6 +76,7 @@ namespace Proyecto_ATM
                        
             if (cuentaSeleccionada.retirar(monto))
             {
+                cuentaSeleccionada.movimientos.registrarMovimiento("Retiro", monto, "Retiro por cajero");
                 Console.WriteLine("\nRetiro realizado correctamente.");
                 Console.WriteLine("Monto retirado: S/ " + monto);
                 Console.WriteLine("Saldo actual: S/ " + cuentaSeleccionada.consultarSaldo());
@@ -171,6 +178,8 @@ namespace Proyecto_ATM
             if (cuentaOrigen.retirar(monto))
             {
                 cuentaDestino.depositar(monto);
+                cuentaOrigen.movimientos.registrarMovimiento("Transferencia Enviada", monto, $"A cuenta {cuentaDestino.numeroCuenta}");
+                cuentaDestino.movimientos.registrarMovimiento("Transferencia Recibida", monto, $"De cuenta {cuentaOrigen.numeroCuenta}");
 
                 Console.WriteLine("\nTransferencia realizada correctamente.");
                 Console.WriteLine("Saldo actual: S/. " + cuentaOrigen.consultarSaldo());
@@ -262,6 +271,7 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 retirosSinTarjeta.insertarRetiro(codigo, monto);
+                cuenta.movimientos.registrarMovimiento("Retiro sin Tarjeta", monto, $"Código: {codigo}");
                 Console.WriteLine("Retiro exitoso. Retire su dinero.");
             }
             else
@@ -326,6 +336,7 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 pagosServicio.insertarPago(servicio, codigo, monto);
+                cuenta.movimientos.registrarMovimiento("Pago de Servicio", monto, $"{servicio} - Cód: {codigo}");
                 Console.WriteLine("Pago de " + servicio + " realizado correctamente.");
                 Thread.Sleep(2000);
             }
@@ -333,6 +344,137 @@ namespace Proyecto_ATM
             {
                 Console.WriteLine("Operación cancelada.");
             }
+        }
+
+        //Método para depósito.
+        public void deposito(Cliente cliente)
+        {
+            Console.Clear();
+            Console.WriteLine("===== DEPÓSITO =====");
+
+            Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
+
+            if (cuentaSeleccionada == null)
+            {
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine("\nCuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
+            Console.WriteLine("Saldo disponible: S/ " + cuentaSeleccionada.consultarSaldo());
+
+            decimal monto;
+
+            do
+            {
+                Console.Write("\nIngrese el monto a depositar: S/. ");
+
+                if (!decimal.TryParse(Console.ReadLine(), out monto))
+                {
+                    Console.WriteLine("Debe ingresar un monto válido.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                if (monto <= 0)
+                {
+                    Console.WriteLine("El monto debe ser mayor a cero.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+
+            cuentaSeleccionada.depositar(monto);
+            cuentaSeleccionada.movimientos.registrarMovimiento("Depósito", monto, "Depósito en efectivo");
+
+            Console.WriteLine("\nDepósito realizado correctamente.");
+            Console.WriteLine("Monto depositado: S/ " + monto);
+            Console.WriteLine("Saldo actual: S/ " + cuentaSeleccionada.consultarSaldo());
+
+            Thread.Sleep(2000);
+            Console.Clear();
+        }
+
+        //Método para cambiar PIN.
+        public void cambiarPin(Cliente cliente)
+        {
+            Console.Clear();
+            Console.WriteLine("===== CAMBIO DE PIN =====");
+
+            Console.Write("Ingrese su PIN actual: ");
+            string pinActual = Console.ReadLine();
+
+            if (!cliente.validarPinAcceso(pinActual))
+            {
+                Console.WriteLine("\nPIN incorrecto. No se puede realizar el cambio.");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            string nuevoPin;
+            do
+            {
+                Console.Write("\nIngrese su nuevo PIN (4 dígitos): ");
+                nuevoPin = Console.ReadLine();
+
+                if (!Cliente.validarPin(nuevoPin))
+                {
+                    Console.WriteLine("PIN inválido. Debe tener exactamente 4 dígitos numéricos.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                if (nuevoPin == pinActual)
+                {
+                    Console.WriteLine("El nuevo PIN no puede ser igual al PIN anterior.");
+                    Thread.Sleep(1500);
+                    continue;
+                }
+
+                break;
+
+            } while (true);
+
+            Console.Write("Confirme su nuevo PIN: ");
+            string confirmacionPin = Console.ReadLine();
+
+            if (nuevoPin != confirmacionPin)
+            {
+                Console.WriteLine("\nLos PINs no coinciden. Cambio cancelado.");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            cliente.pin = nuevoPin;
+            Console.WriteLine("\nPIN cambiado exitosamente.");
+            Thread.Sleep(2000);
+            Console.Clear();
+        }
+
+        //Método para ver historial de movimientos.
+        public void verHistorialMovimientos(Cliente cliente)
+        {
+            Console.Clear();
+            Console.WriteLine("===== HISTORIAL DE MOVIMIENTOS =====");
+
+            Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
+
+            if (cuentaSeleccionada == null)
+            {
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine("\nHistorial de la cuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
+            
+            cuentaSeleccionada.movimientos.mostrarHistorial();
+
+            Console.WriteLine("\nPresione cualquier tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
         }
         // Método para buscar cuenta destino en transferencias.
         public Cuenta buscarCuentaDestino(string numeroCuenta)
@@ -352,6 +494,112 @@ namespace Proyecto_ATM
             }
 
             return null;
+        }
+
+        //ATM ADMINISTRADOR
+        public void crearCuenta()
+        {
+            Console.Clear();
+
+            Console.WriteLine("====== CREAR CUENTA ======");
+
+            Console.Write("Ingrese DNI del cliente: ");
+            string dni = Console.ReadLine();
+
+
+            Cliente cliente = clientes.buscarPorDni(dni);
+
+
+            if (cliente == null)
+            {
+                Console.WriteLine("Cliente no encontrado.");
+                return;
+            }
+
+
+            Console.Write("Número de cuenta: ");
+            string numeroCuenta = Console.ReadLine();
+
+
+            Console.Write("Tipo de cuenta: ");
+            string tipoCuenta = Console.ReadLine();
+
+
+            Console.Write("Saldo inicial: ");
+            decimal saldo;
+
+            if (!decimal.TryParse(Console.ReadLine(), out saldo) || saldo < 0)
+            {
+                Console.WriteLine("Saldo inválido.");
+                return;
+            }
+
+
+            Cuenta nuevaCuenta = new Cuenta(
+                numeroCuenta,
+                tipoCuenta,
+                saldo
+            );
+
+
+            cliente.cuentas.agregarCuenta(nuevaCuenta);
+
+
+            Console.WriteLine("\nCuenta creada correctamente.");
+        }
+
+        public void asignarTarjeta()
+        {
+            Console.Clear();
+
+            Console.WriteLine("====== REEMPLAZAR TARJETA ======");
+
+            Console.Write("Ingrese DNI del cliente: ");
+            string dni = Console.ReadLine();
+
+
+            Cliente cliente = clientes.buscarPorDni(dni);
+
+
+            if (cliente == null)
+            {
+                Console.WriteLine("Cliente no encontrado.");
+                Console.ReadKey();
+                return;
+            }
+
+
+            Console.WriteLine("Cliente encontrado:");
+            Console.WriteLine(cliente.nombre + " " + cliente.apellido);
+
+
+            Console.WriteLine("Tarjeta actual: " + cliente.tarjeta);
+
+
+            Console.Write("Ingrese nueva tarjeta: ");
+            string nuevaTarjeta = Console.ReadLine();
+
+
+            if (!Cliente.validarTarjeta(nuevaTarjeta))
+            {
+                Console.WriteLine("Tarjeta inválida.");
+                Console.ReadKey();
+                return;
+            }
+
+
+            cliente.tarjeta = nuevaTarjeta;
+
+
+            Console.WriteLine("Tarjeta reemplazada correctamente.");
+            Console.ReadKey();
+        }
+
+        public void reportes()
+        {
+            Console.Clear();
+
+            clientes.reporteClientes();
         }
     }
 }

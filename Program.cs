@@ -11,7 +11,7 @@ namespace Proyecto_ATM
         static void Main(string[] args)
         {
             // Crear la lista de clientes
-            ListaEnlazadaCliente listaClientes = new ListaEnlazadaCliente();
+            /*ListaEnlazadaCliente listaClientes = new ListaEnlazadaCliente();
             ListaEnlazadaCuenta listaCuentasMaria = new ListaEnlazadaCuenta();
 
             // Crear la lista de cuentas del cliente
@@ -28,13 +28,14 @@ namespace Proyecto_ATM
             listaCuentasMaria.agregarCuenta(new Cuenta("2002", "Corriente", 1500));
 
             listaClientes.insertaCliente(
-                "87654321",
+                "71814084",
                 "María",
                 "López",
                 "Av. Arequipa 456",
                 999888777,
                 "maria@gmail.com",
-                "4321",
+                "1234567890",
+                "1234",
                 false,
                 listaCuentasMaria
             );
@@ -47,10 +48,21 @@ namespace Proyecto_ATM
                 "Av. Lima 123",
                 987654321,
                 "juan@gmail.com",
+                "0123456789",
                 "0123",
                 false,
                 listaCuentas
-            );
+            );*/
+
+            ListaEnlazadaCliente listaClientes = new ListaEnlazadaCliente();
+
+            // Cargar datos desde archivo
+            CargarArchivo archivo = new CargarArchivo(listaClientes);
+
+
+            // Cargar datos al archivo
+            archivo.cargarArchivo("datos.txt");
+            listaClientes.mostrarClientes();
 
             // Crear el ATM
             ATM atm = new ATM(listaClientes);
@@ -61,12 +73,10 @@ namespace Proyecto_ATM
             // Iniciar sesión
             while (true)
             {
-                
-                menu.iniciarSesion();
-                
-            }
 
-            //Console.ReadKey();
+                menu.menuPrincipal();               
+
+            }        
         }
     }
 }

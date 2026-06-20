@@ -9,7 +9,7 @@ namespace Proyecto_ATM
 {
     internal class ListaEnlazadaCuenta
     {
-        public Cuenta lista;
+        public Cuenta lista;        
 
         public ListaEnlazadaCuenta()
         {
@@ -49,6 +49,7 @@ namespace Proyecto_ATM
         //Método para la opción de Consultar Saldo.
         public void mostrarCuentasSaldos()
         {
+            ListaCircularCuentas circular = new ListaCircularCuentas();
             Cuenta cuenta = lista;
 
             if (cuenta == null)
@@ -57,22 +58,9 @@ namespace Proyecto_ATM
                 return;
             }
 
-            int posicion = 1;
-            Console.WriteLine("---------------------------------------------------------");
-            Console.WriteLine($" |{ "MIS CUENTAS Y SALDOS".PadLeft(35).PadRight(35)}| ");
-            Console.WriteLine("---------------------------------------------------------");
-            Console.WriteLine($"| {"Opción",-8} | {"N° Cuenta",-12} | {"Tipo",-15} | {"Saldo",-12}|");
-            Console.WriteLine("---------------------------------------------------------");
+            circular.asignarInicio(lista);
 
-            while (cuenta != null)
-            {
-                Console.WriteLine($"| {posicion,-8} | {cuenta.numeroCuenta,-12} | {cuenta.tipoCuenta,-15} | S/ {cuenta.consultarSaldo(),-12} |");
-
-                posicion++;
-                cuenta = cuenta.sgte;
-            }
-
-            Console.WriteLine("-----------------------------------------------------------------");
+            circular.mostrarCuentaCircular();
         }        
         // Método para agregar una cuenta.
         public void agregarCuenta(Cuenta nuevaCuenta)
@@ -206,6 +194,26 @@ namespace Proyecto_ATM
                 cuenta = cuenta.sgte;
             }
             return contador;
+        }
+        public void mostrarCuentasReporte()
+        {
+            Cuenta cuenta = lista;
+
+            if (cuenta == null)
+            {
+                Console.WriteLine("Sin cuentas.");
+                return;
+            }
+
+            while (cuenta != null)
+            {
+                Console.WriteLine("Cuenta: " + cuenta.numeroCuenta);
+                Console.WriteLine("Tipo: " + cuenta.tipoCuenta);
+                Console.WriteLine("Saldo: S/ " + cuenta.consultarSaldo());
+                Console.WriteLine("------------------------");
+
+                cuenta = cuenta.sgte;
+            }
         }
     }
 }
