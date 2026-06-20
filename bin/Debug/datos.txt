@@ -1,0 +1,2 @@
+12345678;Rony;Tiquillahuanca;Lima;987654321;correo@gmail.com;1234567890;1234;false;2;1001;Ahorros;5000;1002;Corriente;2500
+87654321;Ana;Perez;Callao;912345678;ana@gmail.com;0987654321;5678;false;1;2001;Ahorros;3000

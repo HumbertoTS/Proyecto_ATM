@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATM.cs" />
+    <Compile Include="CargarArchivo.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Cuenta.cs" />
+    <Compile Include="ListaCircularCuentas.cs" />
     <Compile Include="ListaEnlazadaCliente.cs" />
     <Compile Include="ListaEnlazadaCuenta.cs" />
     <Compile Include="ListaEnlazadaMovimiento.cs" />
