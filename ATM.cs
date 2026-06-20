@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Proyecto_ATM
 {
@@ -14,14 +10,15 @@ namespace Proyecto_ATM
         public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
         public ListaEnlazadaPagoServicio pagosServicio;
         //Constructor del ATM que recibe la lista de clientes.
-        public ATM(ListaEnlazadaCliente clientes) { 
-            
+        public ATM(ListaEnlazadaCliente clientes)
+        {
+
             this.clientes = clientes;
             this.solicitudes = new ListaEnlazadaSolicitudCredito();
             this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
             this.pagosServicio = new ListaEnlazadaPagoServicio();
         }
-        
+
         //Buscar cliente por DNI.
         public Cliente buscarCliente(string dni)
         {
@@ -42,8 +39,8 @@ namespace Proyecto_ATM
             Cuenta cuentaSeleccionada = cliente.cuentas.seleccionarCuenta();
 
             if (cuentaSeleccionada == null)
-            { 
-                return; 
+            {
+                return;
             }
 
             Console.Clear();
@@ -73,10 +70,10 @@ namespace Proyecto_ATM
                 break;
 
             } while (true);
-                       
+
             if (cuentaSeleccionada.retirar(monto))
             {
-                cuentaSeleccionada.movimientos.registrarMovimiento("Retiro", monto, "Retiro por cajero");
+                cuentaSeleccionada.movimientos.registrarMovimientoPush("Retiro", monto, "Retiro por cajero");
                 Console.WriteLine("\nRetiro realizado correctamente.");
                 Console.WriteLine("Monto retirado: S/ " + monto);
                 Console.WriteLine("Saldo actual: S/ " + cuentaSeleccionada.consultarSaldo());
@@ -148,7 +145,7 @@ namespace Proyecto_ATM
                 if (!decimal.TryParse(Console.ReadLine(), out monto) || monto <= 0)
                 {
                     Console.WriteLine("Debe ingresar un monto válido.");
-                    Thread.Sleep(1500);                    
+                    Thread.Sleep(1500);
                     continue;
                 }
 
@@ -178,8 +175,8 @@ namespace Proyecto_ATM
             if (cuentaOrigen.retirar(monto))
             {
                 cuentaDestino.depositar(monto);
-                cuentaOrigen.movimientos.registrarMovimiento("Transferencia Enviada", monto, $"A cuenta {cuentaDestino.numeroCuenta}");
-                cuentaDestino.movimientos.registrarMovimiento("Transferencia Recibida", monto, $"De cuenta {cuentaOrigen.numeroCuenta}");
+                cuentaOrigen.movimientos.registrarMovimientoPush("Transferencia Enviada", monto, $"A cuenta {cuentaDestino.numeroCuenta}");
+                cuentaDestino.movimientos.registrarMovimientoPush("Transferencia Recibida", monto, $"De cuenta {cuentaOrigen.numeroCuenta}");
 
                 Console.WriteLine("\nTransferencia realizada correctamente.");
                 Console.WriteLine("Saldo actual: S/. " + cuentaOrigen.consultarSaldo());
@@ -271,7 +268,7 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 retirosSinTarjeta.insertarRetiro(codigo, monto);
-                cuenta.movimientos.registrarMovimiento("Retiro sin Tarjeta", monto, $"Código: {codigo}");
+                cuenta.movimientos.registrarMovimientoPush("Retiro sin Tarjeta", monto, $"Código: {codigo}");
                 Console.WriteLine("Retiro exitoso. Retire su dinero.");
             }
             else
@@ -336,7 +333,7 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 pagosServicio.insertarPago(servicio, codigo, monto);
-                cuenta.movimientos.registrarMovimiento("Pago de Servicio", monto, $"{servicio} - Cód: {codigo}");
+                cuenta.movimientos.registrarMovimientoPush("Pago de Servicio", monto, $"{servicio} - Cód: {codigo}");
                 Console.WriteLine("Pago de " + servicio + " realizado correctamente.");
                 Thread.Sleep(2000);
             }
@@ -388,7 +385,7 @@ namespace Proyecto_ATM
             } while (true);
 
             cuentaSeleccionada.depositar(monto);
-            cuentaSeleccionada.movimientos.registrarMovimiento("Depósito", monto, "Depósito en efectivo");
+            cuentaSeleccionada.movimientos.registrarMovimientoPush("Depósito", monto, "Depósito en efectivo");
 
             Console.WriteLine("\nDepósito realizado correctamente.");
             Console.WriteLine("Monto depositado: S/ " + monto);
@@ -469,7 +466,7 @@ namespace Proyecto_ATM
 
             Console.Clear();
             Console.WriteLine("\nHistorial de la cuenta: " + cuentaSeleccionada.numeroCuenta + " | " + cuentaSeleccionada.tipoCuenta);
-            
+
             cuentaSeleccionada.movimientos.mostrarHistorial();
 
             Console.WriteLine("\nPresione cualquier tecla para continuar...");
@@ -485,7 +482,7 @@ namespace Proyecto_ATM
             {
                 Cuenta cuentaDestino = cliente.cuentas.buscarCuenta(numeroCuenta);
 
-                if(cuentaDestino != null)
+                if (cuentaDestino != null)
                 {
                     return cuentaDestino;
                 }
@@ -598,8 +595,9 @@ namespace Proyecto_ATM
         public void reportes()
         {
             Console.Clear();
-
             clientes.reporteClientes();
+            Thread.Sleep(10000);
+            Console.Clear();
         }
     }
 }
