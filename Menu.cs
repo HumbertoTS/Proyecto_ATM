@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -119,6 +119,9 @@ namespace Proyecto_ATM
                 Console.WriteLine("1. Retiro");
                 Console.WriteLine("2. Transferencia");
                 Console.WriteLine("3. Consultar Saldo");
+                Console.WriteLine("4. Depósito");
+                Console.WriteLine("5. Cambiar PIN");
+                Console.WriteLine("6. Historial de Movimientos");
                 Console.WriteLine("7. Solicitud de Crédito");
                 Console.WriteLine("8. Retiro sin Tarjeta");
                 Console.WriteLine("9. Pago de Servicios");
@@ -156,6 +159,33 @@ namespace Proyecto_ATM
                     case 3:
                         Console.Clear();
                         cliente.cuentas.mostrarCuentasSaldos();
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }
+                        break;
+
+                    case 4:
+                        atm.deposito(cliente);
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }
+                        break;
+
+                    case 5:
+                        atm.cambiarPin(cliente);
+                        if (!volverAlMenu())
+                        {
+                            Console.Clear();
+                            return;
+                        }
+                        break;
+
+                    case 6:
+                        atm.verHistorialMovimientos(cliente);
                         if (!volverAlMenu())
                         {
                             Console.Clear();

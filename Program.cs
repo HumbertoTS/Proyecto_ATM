@@ -28,13 +28,13 @@ namespace Proyecto_ATM
             listaCuentasMaria.agregarCuenta(new Cuenta("2002", "Corriente", 1500));
 
             listaClientes.insertaCliente(
-                "87654321",
+                "71814084",
                 "María",
                 "López",
                 "Av. Arequipa 456",
                 999888777,
                 "maria@gmail.com",
-                "4321",
+                "1234",
                 false,
                 listaCuentasMaria
             );

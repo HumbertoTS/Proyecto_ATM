@@ -1,11 +1,11 @@
-﻿namespace Proyecto_ATM
+namespace Proyecto_ATM
 {
     internal class Cuenta
     {
         public string numeroCuenta;
         public string tipoCuenta;
         private decimal saldo;
-        public Movimiento movimientos; //se debe cambiar cuando se tenga listo la lista de movimientos
+        public ListaEnlazadaMovimiento movimientos;
 
         public Cuenta sgte;
 
@@ -14,6 +14,7 @@
             this.numeroCuenta = numeroCuenta;
             this.tipoCuenta = tipoCuenta;
             this.saldo = saldo;
+            this.movimientos = new ListaEnlazadaMovimiento();
             this.sgte = null;
         }
         //Método para consultar el saldo de la cuenta.
