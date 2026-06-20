@@ -2,27 +2,49 @@ using System;
 
 namespace Proyecto_ATM
 {
-    internal class ListaEnlazadaMovimiento
+    internal class PilaMovimiento
     {
-        public Movimiento lista;
+        public Movimiento tope;
 
-        public ListaEnlazadaMovimiento()
+        public PilaMovimiento()
         {
-            lista = null;
+            tope = null;
         }
 
         // Método para registrar un movimiento insertándolo al inicio de la lista
-        public void registrarMovimiento(string tipo, decimal monto, string detalle)
+        public void registrarMovimientoPush(string tipo, decimal monto, string detalle)
         {
             Movimiento nuevo = new Movimiento(tipo, monto, detalle);
-            nuevo.sgte = lista;
-            lista = nuevo;
+            nuevo.sgte = tope;
+            tope = nuevo;
+        }
+
+        public Movimiento Peek()
+        {
+            if (tope == null)
+                return null;
+
+            return tope;
+        }
+
+        public Movimiento Pop()
+        {
+            if (tope == null)
+                return null;
+
+            Movimiento aux = tope;
+
+            tope = tope.sgte;
+
+            aux.sgte = null;
+
+            return aux;
         }
 
         // Método para mostrar el historial de movimientos de la cuenta
         public void mostrarHistorial()
         {
-            Movimiento movimiento = lista;
+            Movimiento movimiento = tope;
 
             if (movimiento == null)
             {

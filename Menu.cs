@@ -34,7 +34,8 @@ namespace Proyecto_ATM
                 Console.WriteLine("0. Salir");
                 Console.Write("Seleccione: ");
 
-                opcion = int.Parse(Console.ReadLine());
+                
+                    opcion = int.Parse(Console.ReadLine());
 
 
                 switch (opcion)

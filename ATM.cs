@@ -76,7 +76,7 @@ namespace Proyecto_ATM
                        
             if (cuentaSeleccionada.retirar(monto))
             {
-                cuentaSeleccionada.movimientos.registrarMovimiento("Retiro", monto, "Retiro por cajero");
+                cuentaSeleccionada.movimientos.registrarMovimientoPush("Retiro", monto, "Retiro por cajero");
                 Console.WriteLine("\nRetiro realizado correctamente.");
                 Console.WriteLine("Monto retirado: S/ " + monto);
                 Console.WriteLine("Saldo actual: S/ " + cuentaSeleccionada.consultarSaldo());
@@ -178,8 +178,8 @@ namespace Proyecto_ATM
             if (cuentaOrigen.retirar(monto))
             {
                 cuentaDestino.depositar(monto);
-                cuentaOrigen.movimientos.registrarMovimiento("Transferencia Enviada", monto, $"A cuenta {cuentaDestino.numeroCuenta}");
-                cuentaDestino.movimientos.registrarMovimiento("Transferencia Recibida", monto, $"De cuenta {cuentaOrigen.numeroCuenta}");
+                cuentaOrigen.movimientos.registrarMovimientoPush("Transferencia Enviada", monto, $"A cuenta {cuentaDestino.numeroCuenta}");
+                cuentaDestino.movimientos.registrarMovimientoPush("Transferencia Recibida", monto, $"De cuenta {cuentaOrigen.numeroCuenta}");
 
                 Console.WriteLine("\nTransferencia realizada correctamente.");
                 Console.WriteLine("Saldo actual: S/. " + cuentaOrigen.consultarSaldo());
@@ -271,7 +271,7 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 retirosSinTarjeta.insertarRetiro(codigo, monto);
-                cuenta.movimientos.registrarMovimiento("Retiro sin Tarjeta", monto, $"Código: {codigo}");
+                cuenta.movimientos.registrarMovimientoPush("Retiro sin Tarjeta", monto, $"Código: {codigo}");
                 Console.WriteLine("Retiro exitoso. Retire su dinero.");
             }
             else
@@ -336,7 +336,7 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 pagosServicio.insertarPago(servicio, codigo, monto);
-                cuenta.movimientos.registrarMovimiento("Pago de Servicio", monto, $"{servicio} - Cód: {codigo}");
+                cuenta.movimientos.registrarMovimientoPush("Pago de Servicio", monto, $"{servicio} - Cód: {codigo}");
                 Console.WriteLine("Pago de " + servicio + " realizado correctamente.");
                 Thread.Sleep(2000);
             }
@@ -388,7 +388,7 @@ namespace Proyecto_ATM
             } while (true);
 
             cuentaSeleccionada.depositar(monto);
-            cuentaSeleccionada.movimientos.registrarMovimiento("Depósito", monto, "Depósito en efectivo");
+            cuentaSeleccionada.movimientos.registrarMovimientoPush("Depósito", monto, "Depósito en efectivo");
 
             Console.WriteLine("\nDepósito realizado correctamente.");
             Console.WriteLine("Monto depositado: S/ " + monto);

@@ -5,7 +5,7 @@ namespace Proyecto_ATM
         public string numeroCuenta;
         public string tipoCuenta;
         private decimal saldo;
-        public ListaEnlazadaMovimiento movimientos;
+        public PilaMovimiento movimientos;
 
         public Cuenta sgte;
 
@@ -14,7 +14,7 @@ namespace Proyecto_ATM
             this.numeroCuenta = numeroCuenta;
             this.tipoCuenta = tipoCuenta;
             this.saldo = saldo;
-            this.movimientos = new ListaEnlazadaMovimiento();
+            this.movimientos = new PilaMovimiento();
             this.sgte = null;
         }
         //Método para consultar el saldo de la cuenta.
