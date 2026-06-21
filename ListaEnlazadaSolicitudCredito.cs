@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using System;
+=======
+﻿using System;
+>>>>>>> origin/AReginaldo
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,10 +19,16 @@ namespace Proyecto_ATM
             lista = null;
         }
 
+<<<<<<< HEAD
         public void insertarSolicitud(string tipo, decimal monto, int plazo, string estado = "Pendiente")
         {
             SolicitudCredito q = new SolicitudCredito(tipo, monto, plazo);
             q.estado = estado;
+=======
+        public void insertarSolicitud(string tipo, decimal monto, int plazo)
+        {
+            SolicitudCredito q = new SolicitudCredito(tipo, monto, plazo);
+>>>>>>> origin/AReginaldo
 
             if (lista == null)
             {

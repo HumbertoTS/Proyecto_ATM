@@ -50,7 +50,11 @@
     <Compile Include="ListaCircularCuentas.cs" />
     <Compile Include="ListaEnlazadaCliente.cs" />
     <Compile Include="ListaEnlazadaCuenta.cs" />
+<<<<<<< HEAD
     <Compile Include="PilaMovimiento.cs" />
+=======
+    <Compile Include="ListaEnlazadaMovimiento.cs" />
+>>>>>>> origin/AReginaldo
     <Compile Include="ListaEnlazadaPagoServicio.cs" />
     <Compile Include="ListaEnlazadaRetiroSinTarjeta.cs" />
     <Compile Include="ListaEnlazadaSolicitudCredito.cs" />

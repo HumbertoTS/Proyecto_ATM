@@ -9,8 +9,22 @@ namespace Proyecto_ATM
         public ListaEnlazadaSolicitudCredito solicitudes;
         public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
         public ListaEnlazadaPagoServicio pagosServicio;
+<<<<<<< HEAD
         //Constructor del ATM que recibe la lista de clientes.
         public ATM(ListaEnlazadaCliente clientes)
+=======
+
+        //Constructor del ATM que recibe la lista de clientes.
+        public ATM(ListaEnlazadaCliente clientes) { 
+            
+            this.clientes = clientes;
+            this.solicitudes = new ListaEnlazadaSolicitudCredito();
+            this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
+            this.pagosServicio = new ListaEnlazadaPagoServicio();
+        }
+        //Método para validar pin.
+        public bool validarPin(Cliente cliente, int pin)
+>>>>>>> origin/AReginaldo
         {
 
             this.clientes = clientes;
@@ -24,6 +38,7 @@ namespace Proyecto_ATM
         {
             return clientes.buscarPorDni(dni);
         }
+<<<<<<< HEAD
 
         public Cliente buscarClientePorTarjeta(string tarjeta)
         {
@@ -190,6 +205,8 @@ namespace Proyecto_ATM
             Console.Clear();
         }
 
+=======
+>>>>>>> origin/AReginaldo
         public void solicitarCredito(Cuenta cuenta)
         {
             Console.WriteLine("===================================");
@@ -228,6 +245,7 @@ namespace Proyecto_ATM
                 return;
             }
 
+<<<<<<< HEAD
             Console.Write("\n¿Confirma el desembolso inmediato del crédito en su cuenta? (S/N): ");
             string confirma = Console.ReadLine();
 
@@ -246,6 +264,10 @@ namespace Proyecto_ATM
                 solicitudes.insertarSolicitud(tipo, monto, plazo, "Pendiente");
                 Console.WriteLine("\nSolicitud registrada correctamente. Estado: Pendiente.");
             }
+=======
+            solicitudes.insertarSolicitud(tipo, monto, plazo);
+            Console.WriteLine("Solicitud registrada correctamente. Estado: Pendiente.");
+>>>>>>> origin/AReginaldo
         }
 
         public void retiroSinTarjeta(Cuenta cuenta)
@@ -284,7 +306,10 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 retirosSinTarjeta.insertarRetiro(codigo, monto);
+<<<<<<< HEAD
                 cuenta.movimientos.registrarMovimientoPush("Retiro sin Tarjeta", monto, $"Código: {codigo}");
+=======
+>>>>>>> origin/AReginaldo
                 Console.WriteLine("Retiro exitoso. Retire su dinero.");
             }
             else
@@ -349,15 +374,20 @@ namespace Proyecto_ATM
             {
                 cuenta.retirar(monto);
                 pagosServicio.insertarPago(servicio, codigo, monto);
+<<<<<<< HEAD
                 cuenta.movimientos.registrarMovimientoPush("Pago de Servicio", monto, $"{servicio} - Cód: {codigo}");
                 Console.WriteLine("Pago de " + servicio + " realizado correctamente.");
                 Thread.Sleep(2000);
+=======
+                Console.WriteLine("Pago de " + servicio + " realizado correctamente.");
+>>>>>>> origin/AReginaldo
             }
             else
             {
                 Console.WriteLine("Operación cancelada.");
             }
         }
+<<<<<<< HEAD
 
         //Método para depósito.
         public void deposito(Cliente cliente)
@@ -615,6 +645,8 @@ namespace Proyecto_ATM
             Thread.Sleep(10000);
             Console.Clear();
         }
+=======
+>>>>>>> origin/AReginaldo
     }
 }
 
