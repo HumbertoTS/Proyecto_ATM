@@ -34,8 +34,8 @@ namespace Proyecto_ATM
                 Console.WriteLine("0. Salir");
                 Console.Write("Seleccione: ");
 
-                
-                    opcion = int.Parse(Console.ReadLine());
+
+                opcion = int.Parse(Console.ReadLine());
 
 
                 switch (opcion)
@@ -107,15 +107,15 @@ namespace Proyecto_ATM
             }
 
             int intentos = 0;
-            while(intentos < 3)
+            while (intentos < 3)
             {
                 Console.Write("Ingrese su PIN: ");
-                string pin = LeerPin();                
+                string pin = LeerPin();
                 if (!Cliente.validarPin(pin))
                 {
                     Console.WriteLine("Debe ingresar un PIN válido.\n");
                     Thread.Sleep(2000);
-                    
+
                     continue;
                 }
 
@@ -125,7 +125,7 @@ namespace Proyecto_ATM
                     Console.WriteLine("===================================");
                     Console.WriteLine("|              ATM                |");
                     Console.WriteLine("===================================");
-                    Console.WriteLine("|    Bienvenido " + cliente.nombre + " " + cliente.apellido +"   |");                    
+                    Console.WriteLine("|    Bienvenido " + cliente.nombre + " " + cliente.apellido + "   |");
                     Console.WriteLine("|    Tu banco, tu tranquilidad.   |");
                     Console.WriteLine("===================================");
                     Thread.Sleep(2000);
@@ -134,29 +134,32 @@ namespace Proyecto_ATM
                 }
                 intentos++;
                 Console.WriteLine("PIN incorrecto. Intentos restantes: " + (3 - intentos));
-               
+
             }
 
             cliente.bloquearCliente();
             Console.WriteLine("El cliente ha sido bloqueado por exceder la cantidad de intentos");
             Console.WriteLine("Por favor, acercarse a plataforma para desbloquear su cuenta.");
             Thread.Sleep(4000);
-            
+
         }
         //Método para mostrar el menú de opciones al cliente después de iniciar sesión exitosamente.
         public void mostrarMenu(Cliente cliente)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             Console.WriteLine("Ingreso al menu exitoso");
             Console.ReadKey();
+>>>>>>> origin/AReginaldo
+=======
 >>>>>>> origin/AReginaldo
             int opcion;
 
             while (true)
             {
                 Console.Clear();
-               
+
                 Console.WriteLine();
                 Console.WriteLine("===================================");
                 Console.WriteLine("              ATM");
@@ -164,6 +167,9 @@ namespace Proyecto_ATM
                 Console.WriteLine("1. Retiro");
                 Console.WriteLine("2. Transferencia");
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/AReginaldo
                 Console.WriteLine("3. Consultar Saldo");
                 Console.WriteLine("4. Depósito");
                 Console.WriteLine("5. Cambiar PIN");
@@ -172,11 +178,14 @@ namespace Proyecto_ATM
                 Console.WriteLine("8. Retiro sin Tarjeta");
                 Console.WriteLine("9. Pago de Servicios");
                 Console.WriteLine("0. Salir");
+<<<<<<< HEAD
 =======
                 Console.WriteLine("3. Salir");
                 Console.WriteLine("7. Solicitud de Crédito");
                 Console.WriteLine("8. Retiro sin Tarjeta");
                 Console.WriteLine("9. Pago de Servicios");
+>>>>>>> origin/AReginaldo
+=======
 >>>>>>> origin/AReginaldo
                 Console.WriteLine("===================================");
                 Console.Write("Seleccione una opción: ");
@@ -192,12 +201,15 @@ namespace Proyecto_ATM
                 {
                     case 1:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/AReginaldo
                         atm.retiro(cliente);
                         if (!volverAlMenu())
                         {
                             Console.Clear();
                             return;
-                        }                        
+                        }
                         break;
 
                     case 2:
@@ -207,12 +219,15 @@ namespace Proyecto_ATM
                             Console.Clear();
                             return;
                         }
+<<<<<<< HEAD
 =======
                         //atm.retiro(cliente);
                         break;
 
                     case 2:
                         //atm.transferencia(cliente);
+>>>>>>> origin/AReginaldo
+=======
 >>>>>>> origin/AReginaldo
                         break;
 
@@ -225,12 +240,11 @@ namespace Proyecto_ATM
                             return;
                         }*/
                         break;
-                    case 7:
-                        Cuenta cuentaCredito = cliente.cuenta.seleccionarCuenta();
-                        atm.solicitarCredito(cuentaCredito);
-                        break;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/AReginaldo
                     case 4:
                         atm.deposito(cliente);
                         if (!volverAlMenu())
@@ -262,8 +276,8 @@ namespace Proyecto_ATM
                         Cuenta cuentaCredito = cliente.cuentas.seleccionarCuenta();
                         if (cuentaCredito != null)
                         {
-                            atm.solicitarCredito(cuentaCredito);
-                        }                        
+                            atm.solicitarCredito(cliente, cuentaCredito);
+                        }
                         break;
 
                     case 8:
@@ -283,12 +297,13 @@ namespace Proyecto_ATM
                         break;
 
                     case 0:
-                        
+
                         Console.WriteLine("\nGracias por usar el sistema. ¡Hasta luego!\n");
                         Thread.Sleep(2000);
-                        
+
                         return;
 
+<<<<<<< HEAD
 =======
                     case 8:
                         Cuenta cuentaRetiro = cliente.cuenta.seleccionarCuenta();
@@ -300,6 +315,8 @@ namespace Proyecto_ATM
                         atm.pagoServicio(cuentaPago);
                         break;
 >>>>>>> origin/AReginaldo
+=======
+>>>>>>> origin/AReginaldo
                     default:
                         Console.WriteLine("Opción no válida.");
                         Thread.Sleep(2000);
@@ -307,7 +324,11 @@ namespace Proyecto_ATM
                 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             } 
+=======
+            }
+>>>>>>> origin/AReginaldo
         }
         //Método para consultar si desea volver al menú o solo salir.
         public bool volverAlMenu()
@@ -330,10 +351,13 @@ namespace Proyecto_ATM
                     Thread.Sleep(2000);
                 }
 
-                return opcion == 1; 
+                return opcion == 1;
             }
+<<<<<<< HEAD
 =======
             } while (opcion != 3);
+>>>>>>> origin/AReginaldo
+=======
 >>>>>>> origin/AReginaldo
         }
         //Método para leer el PIN ingresado por el cliente, ocultando los caracteres.
@@ -411,6 +435,7 @@ namespace Proyecto_ATM
                 Console.WriteLine("1. Crear cuenta");
                 Console.WriteLine("2. Asignar tarjeta");
                 Console.WriteLine("3. Reportes");
+                Console.WriteLine("4. Solicitudes de Crédito");
                 Console.WriteLine("0. Volver");
 
                 Console.Write("Seleccione: ");
@@ -431,7 +456,11 @@ namespace Proyecto_ATM
                     case 3:
                         atm.reportes();
                         break;
-                }                
+
+                    case 4:
+                        atm.gestionarSolicitudesCredito();
+                        break;
+                }
 
             } while (opcion != 0);
         }

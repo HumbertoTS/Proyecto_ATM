@@ -6,6 +6,9 @@ C:\Users\HRonny\source\repos\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
 C:\Users\HRonny\source\repos\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
 C:\Users\HRonny\source\repos\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/AReginaldo
 F:\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.AssemblyReference.cache
 F:\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.CoreCompileInputs.cache
 F:\Proyecto_ATM\obj\Debug\Proyecto_ATM.exe
@@ -13,6 +16,7 @@ F:\Proyecto_ATM\obj\Debug\Proyecto_ATM.pdb
 F:\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
 F:\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
 F:\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
+<<<<<<< HEAD
 D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
 D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
 D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
@@ -28,4 +32,13 @@ D:\UPN\EstructuraDatos\Proyecto_ATM\obj\Debug\Proyecto_ATM.pdb
 D:\UPN\EstructuraDatos\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
 D:\UPN\EstructuraDatos\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
 D:\UPN\EstructuraDatos\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
+>>>>>>> origin/AReginaldo
+=======
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.AssemblyReference.cache
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.CoreCompileInputs.cache
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\obj\Debug\Proyecto_ATM.exe
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\obj\Debug\Proyecto_ATM.pdb
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
+D:\UPN\EstructuraDatos\Nueva carpeta\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
 >>>>>>> origin/AReginaldo

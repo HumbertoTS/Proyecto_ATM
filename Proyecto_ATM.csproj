@@ -46,18 +46,22 @@
     <Compile Include="ATM.cs" />
     <Compile Include="CargarArchivo.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ColasSolicitudCredito.cs" />
     <Compile Include="Cuenta.cs" />
     <Compile Include="ListaCircularCuentas.cs" />
     <Compile Include="ListaEnlazadaCliente.cs" />
     <Compile Include="ListaEnlazadaCuenta.cs" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Compile Include="PilaMovimiento.cs" />
 =======
     <Compile Include="ListaEnlazadaMovimiento.cs" />
 >>>>>>> origin/AReginaldo
+=======
+    <Compile Include="PilaMovimiento.cs" />
+>>>>>>> origin/AReginaldo
     <Compile Include="ListaEnlazadaPagoServicio.cs" />
     <Compile Include="ListaEnlazadaRetiroSinTarjeta.cs" />
-    <Compile Include="ListaEnlazadaSolicitudCredito.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Movimiento.cs" />
     <Compile Include="PagoServicio.cs" />

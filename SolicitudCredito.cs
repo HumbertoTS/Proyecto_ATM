@@ -8,6 +8,8 @@ namespace Proyecto_ATM
 {
     internal class SolicitudCredito
     {
+        public Cliente cliente;
+        public Cuenta cuenta;
         public string tipo;
         public decimal monto;
         public int plazo;
@@ -15,8 +17,10 @@ namespace Proyecto_ATM
 
         public SolicitudCredito sgte;
 
-        public SolicitudCredito(string tipo, decimal monto, int plazo)
+        public SolicitudCredito(Cliente cliente, Cuenta cuenta, string tipo, decimal monto, int plazo)
         {
+            this.cliente = cliente;
+            this.cuenta = cuenta;
             this.tipo = tipo;
             this.monto = monto;
             this.plazo = plazo;
