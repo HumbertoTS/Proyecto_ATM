@@ -228,8 +228,24 @@ namespace Proyecto_ATM
                 return;
             }
 
-            solicitudes.insertarSolicitud(tipo, monto, plazo);
-            Console.WriteLine("Solicitud registrada correctamente. Estado: Pendiente.");
+            Console.Write("\n¿Confirma el desembolso inmediato del crédito en su cuenta? (S/N): ");
+            string confirma = Console.ReadLine();
+
+            if (confirma != null && confirma.ToUpper() == "S")
+            {
+                cuenta.depositar(monto);
+                cuenta.movimientos.registrarMovimientoPush("Depósito por Crédito", monto, $"Crédito {tipo} - Plazo: {plazo} m.");
+                solicitudes.insertarSolicitud(tipo, monto, plazo, "Desembolsado");
+
+                Console.WriteLine("\n¡Crédito desembolsado con éxito!");
+                Console.WriteLine("Monto depositado: S/ " + monto);
+                Console.WriteLine("Nuevo saldo: S/ " + cuenta.consultarSaldo());
+            }
+            else
+            {
+                solicitudes.insertarSolicitud(tipo, monto, plazo, "Pendiente");
+                Console.WriteLine("\nSolicitud registrada correctamente. Estado: Pendiente.");
+            }
         }
 
         public void retiroSinTarjeta(Cuenta cuenta)

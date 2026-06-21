@@ -10,6 +10,7 @@ namespace Proyecto_ATM
         public string detalle;
 
         public Movimiento sgte;
+        public Movimiento ant;
 
         // Constructor para registrar un movimiento
         public Movimiento(string tipo, decimal monto, string detalle)
@@ -19,6 +20,7 @@ namespace Proyecto_ATM
             this.fecha = DateTime.Now;
             this.detalle = detalle;
             this.sgte = null;
+            this.ant = null;
         }
     }
 }

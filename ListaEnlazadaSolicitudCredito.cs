@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +15,10 @@ namespace Proyecto_ATM
             lista = null;
         }
 
-        public void insertarSolicitud(string tipo, decimal monto, int plazo)
+        public void insertarSolicitud(string tipo, decimal monto, int plazo, string estado = "Pendiente")
         {
             SolicitudCredito q = new SolicitudCredito(tipo, monto, plazo);
+            q.estado = estado;
 
             if (lista == null)
             {
