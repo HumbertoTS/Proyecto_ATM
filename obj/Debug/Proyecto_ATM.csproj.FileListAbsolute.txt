@@ -12,3 +12,10 @@ F:\Proyecto_ATM\obj\Debug\Proyecto_ATM.pdb
 F:\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
 F:\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
 F:\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe.config
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\bin\Debug\Proyecto_ATM.exe
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\bin\Debug\Proyecto_ATM.pdb
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.AssemblyReference.cache
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\obj\Debug\Proyecto_ATM.csproj.CoreCompileInputs.cache
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\obj\Debug\Proyecto_ATM.exe
+D:\AmdDrivers\PIPI\UPN\CICLO III\ESTRUCTURA DE DATOS\Proyecto_ATM\obj\Debug\Proyecto_ATM.pdb

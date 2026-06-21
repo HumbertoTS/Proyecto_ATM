@@ -75,6 +75,7 @@ namespace Proyecto_ATM
             }
 
             int total = contarMovimientos();
+            Console.WriteLine($"[DEBUG] Total de movimientos contados: {total}");
 
             if (total <= 3)
             {
