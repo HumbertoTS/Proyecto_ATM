@@ -35,7 +35,7 @@ namespace Proyecto_ATM
                 Console.Write("Seleccione: ");
 
                 
-                    opcion = int.Parse(Console.ReadLine());
+                opcion = int.Parse(Console.ReadLine());
 
 
                 switch (opcion)
@@ -237,8 +237,8 @@ namespace Proyecto_ATM
                         Cuenta cuentaCredito = cliente.cuentas.seleccionarCuenta();
                         if (cuentaCredito != null)
                         {
-                            atm.solicitarCredito(cuentaCredito);
-                        }                        
+                            atm.solicitarCredito(cliente, cuentaCredito);
+                        }
                         break;
 
                     case 8:
@@ -371,6 +371,7 @@ namespace Proyecto_ATM
                 Console.WriteLine("1. Crear cuenta");
                 Console.WriteLine("2. Asignar tarjeta");
                 Console.WriteLine("3. Reportes");
+                Console.WriteLine("4. Solicitudes de Crédito");
                 Console.WriteLine("0. Volver");
 
                 Console.Write("Seleccione: ");
@@ -391,7 +392,11 @@ namespace Proyecto_ATM
                     case 3:
                         atm.reportes();
                         break;
-                }                
+
+                    case 4:
+                        atm.gestionarSolicitudesCredito();
+                        break;
+                }
 
             } while (opcion != 0);
         }

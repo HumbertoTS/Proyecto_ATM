@@ -6,7 +6,7 @@ namespace Proyecto_ATM
     internal class ATM
     {
         public ListaEnlazadaCliente clientes;
-        public ListaEnlazadaSolicitudCredito solicitudes;
+        public ColaSolicitudCredito solicitudes;
         public ListaEnlazadaRetiroSinTarjeta retirosSinTarjeta;
         public ListaEnlazadaPagoServicio pagosServicio;
         //Constructor del ATM que recibe la lista de clientes.
@@ -14,7 +14,7 @@ namespace Proyecto_ATM
         {
 
             this.clientes = clientes;
-            this.solicitudes = new ListaEnlazadaSolicitudCredito();
+            this.solicitudes = new ColaSolicitudCredito();
             this.retirosSinTarjeta = new ListaEnlazadaRetiroSinTarjeta();
             this.pagosServicio = new ListaEnlazadaPagoServicio();
         }
@@ -190,7 +190,7 @@ namespace Proyecto_ATM
             Console.Clear();
         }
 
-        public void solicitarCredito(Cuenta cuenta)
+        public void solicitarCredito(Cliente cliente, Cuenta cuenta)
         {
             Console.WriteLine("===================================");
             Console.WriteLine("       SOLICITUD DE CRÉDITO        ");
@@ -228,24 +228,16 @@ namespace Proyecto_ATM
                 return;
             }
 
-            Console.Write("\n¿Confirma el desembolso inmediato del crédito en su cuenta? (S/N): ");
-            string confirma = Console.ReadLine();
+            solicitudes.encolarSolicitud(cliente, cuenta, tipo, monto, plazo);
 
-            if (confirma != null && confirma.ToUpper() == "S")
-            {
-                cuenta.depositar(monto);
-                cuenta.movimientos.registrarMovimientoPush("Depósito por Crédito", monto, $"Crédito {tipo} - Plazo: {plazo} m.");
-                solicitudes.insertarSolicitud(tipo, monto, plazo, "Desembolsado");
-
-                Console.WriteLine("\n¡Crédito desembolsado con éxito!");
-                Console.WriteLine("Monto depositado: S/ " + monto);
-                Console.WriteLine("Nuevo saldo: S/ " + cuenta.consultarSaldo());
-            }
-            else
-            {
-                solicitudes.insertarSolicitud(tipo, monto, plazo, "Pendiente");
-                Console.WriteLine("\nSolicitud registrada correctamente. Estado: Pendiente.");
-            }
+            Console.WriteLine();
+            Console.WriteLine("===================================");
+            Console.WriteLine("Solicitud enviada correctamente.");
+            Console.WriteLine("Tu solicitud quedó en espera de revisión por el administrador.");
+            Console.WriteLine("===================================");
+            Console.WriteLine("\nPresione cualquier tecla para volver al menú...");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         public void retiroSinTarjeta(Cuenta cuenta)
@@ -615,6 +607,68 @@ namespace Proyecto_ATM
             Thread.Sleep(10000);
             Console.Clear();
         }
+		
+		public void gestionarSolicitudesCredito()
+        {
+            Console.Clear();
+
+            Console.WriteLine("====== SOLICITUDES DE CRÉDITO (COLA) ======");
+            solicitudes.mostrarSolicitudes();
+
+            SolicitudCredito siguiente = solicitudes.Peek();
+
+            if (siguiente == null)
+            {
+                Thread.Sleep(2000);
+                Console.Clear();
+                return;
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Siguiente solicitud en turno:");
+            Console.WriteLine("Cliente: " + siguiente.cliente.nombre + " " + siguiente.cliente.apellido);
+            Console.WriteLine("Cuenta: " + siguiente.cuenta.numeroCuenta + " | " + siguiente.cuenta.tipoCuenta);
+            Console.WriteLine("Tipo de crédito: " + siguiente.tipo);
+            Console.WriteLine("Monto solicitado: S/ " + siguiente.monto);
+            Console.WriteLine("Plazo: " + siguiente.plazo + " meses");
+
+            Console.WriteLine();
+            Console.WriteLine("1. Aprobar");
+            Console.WriteLine("2. Rechazar");
+            Console.WriteLine("0. Volver");
+            Console.Write("Seleccione: ");
+
+            int opcion;
+            if (!int.TryParse(Console.ReadLine(), out opcion))
+            {
+                Console.WriteLine("Opción no válida.");
+                Thread.Sleep(1500);
+                Console.Clear();
+                return;
+            }
+
+            switch (opcion)
+            {
+                case 1:
+                    SolicitudCredito aprobada = solicitudes.Desencolar();
+                    aprobada.estado = "Aprobado";
+
+                    aprobada.cuenta.depositar(aprobada.monto);
+                    aprobada.cuenta.movimientos.registrarMovimientoPush("Crédito Aprobado", aprobada.monto, $"Crédito {aprobada.tipo} a {aprobada.plazo} meses");
+
+                    Console.WriteLine("\nCrédito aprobado. Monto abonado a la cuenta del cliente.");
+                    break;
+
+                case 2:
+                    SolicitudCredito rechazada = solicitudes.Desencolar();
+                    rechazada.estado = "Rechazado";
+
+                    Console.WriteLine("\nSolicitud rechazada.");
+                    break;
+            }
+
+            Thread.Sleep(2000);
+            Console.Clear();
+        }
     }
 }
-
