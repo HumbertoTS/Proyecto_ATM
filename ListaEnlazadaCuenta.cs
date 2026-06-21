@@ -9,7 +9,7 @@ namespace Proyecto_ATM
 {
     internal class ListaEnlazadaCuenta
     {
-        public Cuenta lista;
+        public Cuenta lista;        
 
         public ListaEnlazadaCuenta()
         {
@@ -46,30 +46,36 @@ namespace Proyecto_ATM
 
             Console.WriteLine("-----------------------------------------------------------");
         }
-        //Método para mostrar las cuentas con su saldo actual.
-        /*public void mostrarCuentasConSaldo()
+        //Método para la opción de Consultar Saldo.
+        public void mostrarCuentasSaldos()
         {
+            ListaCircularCuentas circular = new ListaCircularCuentas();
             Cuenta cuenta = lista;
+
             if (cuenta == null)
             {
                 Console.WriteLine("No hay cuentas registradas.");
                 return;
             }
-            int posicion = 1;
-            Console.WriteLine("--------------------------------------------------------------------------------");
-            Console.WriteLine($"| {"Opción",-8} | {"N° Cuenta",-12} | {"Tipo",-15} | {"Saldo Actual",-15} |");
-            Console.WriteLine("--------------------------------------------------------------------------------");
-            while (cuenta != null)
-            {
-                Console.WriteLine($"| {posicion,-8} | {cuenta.numeroCuenta,-12} | {cuenta.tipoCuenta,-15} | {cuenta.consultarSaldo(),-15:C} |");
-                posicion++;
-                cuenta = cuenta.sgte;
-            }
-            Console.WriteLine("--------------------------------------------------------------------------------");
-        }*/
+
+            circular.asignarInicio(lista);
+
+            circular.mostrarCuentaCircular();
+        }        
         // Método para agregar una cuenta.
         public void agregarCuenta(Cuenta nuevaCuenta)
         {
+            if (nuevaCuenta == null)
+            {
+                return;
+            }
+
+            if (buscarCuenta(nuevaCuenta.numeroCuenta) != null)
+            {
+                Console.WriteLine("Ya existe una cuenta con ese número.");
+                return;
+            }
+
             if (lista == null)
             {
                 lista = nuevaCuenta;
@@ -85,7 +91,7 @@ namespace Proyecto_ATM
             }
         }
         // Método para buscar una cuenta.
-        public Cuenta buscarCuenta(int numeroCuenta)
+        public Cuenta buscarCuenta(string numeroCuenta)
         {
             Cuenta cuenta = lista;
             while (cuenta != null)
@@ -99,18 +105,19 @@ namespace Proyecto_ATM
             return null;
         }
         //Método para eliminar una cuenta.
-        public void eliminarCuenta(int numeroCuenta)
+        public void eliminarCuenta(string numeroCuenta)
         {
             //En caso este vacío la lista
             if (lista == null)
             {
-                Console.WriteLine("No hay clientes registrados.");
+                Console.WriteLine("No hay cuentas registradas.");
                 return;
             }
             //Elimina la primera cuenta
             if (lista.numeroCuenta == numeroCuenta)
             {
                 lista = lista.sgte;
+                Console.WriteLine("Cuenta eliminada correctamente.");
                 return;
             }
             Cuenta cuenta = lista;
@@ -124,9 +131,10 @@ namespace Proyecto_ATM
                 }
                 cuenta = cuenta.sgte;
             }
+            Console.WriteLine("Cuenta no encontrada.");
         }
         //Busca la posición de la cuenta en la lista.
-        public Cuenta buscarporPosicion(int posicion)
+        public Cuenta buscarPorPosicion(int posicion)
         {
         Cuenta cuenta = lista;
         int contador = 1;
@@ -144,6 +152,12 @@ namespace Proyecto_ATM
         //Método para seleccionar una cuenta.
         public Cuenta seleccionarCuenta()
         {
+            if (estaVacia())
+            {
+                Console.WriteLine("No hay cuentas registradas.");
+                return null;
+            }
+
             mostrarCuentas();
             int posicion = 0;
             Cuenta cuenta = null;
@@ -154,7 +168,7 @@ namespace Proyecto_ATM
 
                 if (int.TryParse(Console.ReadLine(), out posicion))
                 {
-                    cuenta = buscarporPosicion(posicion);
+                    cuenta = buscarPorPosicion(posicion);
 
                     if (cuenta == null)
                     {
@@ -163,7 +177,7 @@ namespace Proyecto_ATM
                 }
                 else
                 {
-                    Console.WriteLine("Debe ingresar un número.");
+                    Console.WriteLine("Debe escoger la opción de cuenta correcta.");
                 }
             }
 
@@ -180,6 +194,26 @@ namespace Proyecto_ATM
                 cuenta = cuenta.sgte;
             }
             return contador;
+        }
+        public void mostrarCuentasReporte()
+        {
+            Cuenta cuenta = lista;
+
+            if (cuenta == null)
+            {
+                Console.WriteLine("Sin cuentas.");
+                return;
+            }
+
+            while (cuenta != null)
+            {
+                Console.WriteLine("Cuenta: " + cuenta.numeroCuenta);
+                Console.WriteLine("Tipo: " + cuenta.tipoCuenta);
+                Console.WriteLine("Saldo: S/ " + cuenta.consultarSaldo());
+                Console.WriteLine("------------------------");
+
+                cuenta = cuenta.sgte;
+            }
         }
     }
 }
